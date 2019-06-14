@@ -9,7 +9,7 @@ function mapStateToProps(state){
   }
 }
 
-class LoginScreen extends React.Component 
+class RegistroScreen extends React.Component 
 {    
   static navigationOptions = {
       header: null
@@ -48,4 +48,4 @@ class LoginScreen extends React.Component
   }
 }
 
-export default connect(mapStateToProps)(HomeScreen)
+export default connect(mapStateToProps)(RegistroScreen)

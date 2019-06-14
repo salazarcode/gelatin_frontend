@@ -48,4 +48,4 @@ class LoginScreen extends React.Component
   }
 }
 
-export default connect(mapStateToProps)(HomeScreen)
+export default connect(mapStateToProps)(LoginScreen)

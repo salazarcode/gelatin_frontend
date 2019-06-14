@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
 import AppContainer from './navigation/Router';
 
 import { Provider as PaperProvider } from 'react-native-paper';

@@ -9,7 +9,7 @@ function mapStateToProps(state){
   }
 }
 
-class LoginScreen extends React.Component 
+class OpcionesScreen extends React.Component 
 {    
   static navigationOptions = {
       header: null
@@ -20,22 +20,11 @@ class LoginScreen extends React.Component
       todos: []
     };
   }  
-  async componentDidMount(){
-    let todos = await axios.get('https://jsonplaceholder.typicode.com/todos/1')
-    .then(function (response) {
-      return response.data;
-    })
-    .catch(function(error){
-      console.log(error)
-    })
-
-    this.setState({todos: todos});
-    console.log(this.state);
-  }
   render() {
 
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>    
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>  
+      <Text>Opciones</Text>  
         <Button 
           title="btn_details" 
           onPress={() => this.props.navigation.navigate('Details')} 
@@ -48,4 +37,4 @@ class LoginScreen extends React.Component
   }
 }
 
-export default connect(mapStateToProps)(HomeScreen)
+export default connect(mapStateToProps)(OpcionesScreen)

@@ -9,7 +9,7 @@ function mapStateToProps(state){
   }
 }
 
-class AccesoScreen extends React.Component 
+class DashboardScreen extends React.Component 
 {    
   static navigationOptions = {
       header: null
@@ -48,4 +48,4 @@ class AccesoScreen extends React.Component
   }
 }
 
-export default connect(mapStateToProps)(HomeScreen)
+export default connect(mapStateToProps)(DashboardScreen)
