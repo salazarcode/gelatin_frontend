@@ -9,7 +9,7 @@ function mapStateToProps(state){
   }
 }
 
-class HomeScreen extends React.Component 
+class RegisterScreen extends React.Component 
 {    
   static navigationOptions = {
       header: null

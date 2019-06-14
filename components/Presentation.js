@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { button } from 'react-native-paper'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
@@ -9,7 +10,7 @@ function mapStateToProps(state){
   }
 }
 
-class HomeScreen extends React.Component 
+class PresentacionScreen extends React.Component 
 {    
   static navigationOptions = {
       header: null
@@ -17,28 +18,15 @@ class HomeScreen extends React.Component
   constructor(props) {
     super(props);
     this.state = {
-      todos: []
     };
   }  
-  async componentDidMount(){
-    let todos = await axios.get('https://jsonplaceholder.typicode.com/todos/1')
-    .then(function (response) {
-      return response.data;
-    })
-    .catch(function(error){
-      console.log(error)
-    })
-
-    this.setState({todos: todos});
-    console.log(this.state);
-  }
   render() {
 
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>    
+      <View style={{ flex: 1 }}>    
         <Button 
-          title="btn_details" 
-          onPress={() => this.props.navigation.navigate('Details')} 
+          title="Botón de empecemos" 
+          onPress={() => this.props.navigation.navigate('')} 
           color="green"
         >
           Ir a detalles
@@ -47,5 +35,11 @@ class HomeScreen extends React.Component
     );
   }
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex:1
+    }
+  });
 
 export default connect(mapStateToProps)(HomeScreen)
