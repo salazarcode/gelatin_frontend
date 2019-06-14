@@ -1,16 +1,16 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import PresentacionScreen from '../components/Presentacion'
-import OpcionesScreen from '../components/Opciones'/*
+import OpcionesScreen from '../components/Opciones'
 import LoginScreen from '../components/Login'
-import RegistroScreen from '../components/Registro'
+import RegistroScreen from '../components/Registro'/*
 import DashboardScreen from '../components/Dashboard'*/
 
 const AppNavigator = createStackNavigator({
   Presentacion: PresentacionScreen,
-  Opciones: OpcionesScreen/*,
+  Opciones: OpcionesScreen,
   Login: LoginScreen,
-  Registro: RegistroScreen,
+  Registro: RegistroScreen/*,
   Dashboard: DashboardScreen*/
 },
 {

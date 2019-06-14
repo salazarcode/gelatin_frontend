@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import {Button} from 'react-native-paper'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
@@ -20,8 +21,8 @@ class RegistroScreen extends React.Component
       todos: []
     };
   }  
-  async componentDidMount(){
-    let todos = await axios.get('https://jsonplaceholder.typicode.com/todos/1')
+  componentDidMount(){
+    /*let todos = await axios.get('https://jsonplaceholder.typicode.com/todos/1')
     .then(function (response) {
       return response.data;
     })
@@ -30,18 +31,18 @@ class RegistroScreen extends React.Component
     })
 
     this.setState({todos: todos});
-    console.log(this.state);
+    console.log(this.state);*/
   }
   render() {
 
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>    
         <Button 
-          title="btn_details" 
+          title="Registrar" 
           onPress={() => this.props.navigation.navigate('Details')} 
           color="green"
         >
-          Ir a detalles
+          REGISTRAR
         </Button>
       </View>
     );
