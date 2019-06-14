@@ -17,35 +17,73 @@ class DashboardScreen extends React.Component
   constructor(props) {
     super(props);
     this.state = {
-      todos: []
+      token: this.props.navigation.getParam("token", ""),
+      isLoading: false
     };
   }  
-  async componentDidMount(){
-    let todos = await axios.get('https://jsonplaceholder.typicode.com/todos/1')
+  async logout(){
+    await this.setState({
+      isLoading: true
+    });
+    await axios({
+      method: 'post',
+      url: 'https://ivorystack.com/mainbk/public/api/logout',
+      headers: {"token": this.state.token}
+    })
     .then(function (response) {
-      return response.data;
-    })
-    .catch(function(error){
-      console.log(error)
-    })
+      this.setState({
+        token:"",
+        isLoading: false
+      });
+      this.props.navigation.navigate('Opciones');
+    });    
+  }  
 
-    this.setState({todos: todos});
-    console.log(this.state);
-  }
   render() {
-
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>    
+        <Text>Dashboard</Text> 
+        <Text>{this.state.token}</Text>
         <Button 
-          title="btn_details" 
-          onPress={() => this.props.navigation.navigate('Details')} 
-          color="green"
+          title="Salir" 
+          onPress={(ev)=>{this.logout()}}
+          style={styles.boton}
+          loading={this.state.isLoading}
         >
-          Ir a detalles
+          Salir
         </Button>
       </View>
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  corriendo: {
+    height: '40%', 
+    width: '60%'
+  },
+  logo: {
+    width: 100, 
+    height: 100,
+    paddingBottom: 30
+  },
+  boton: {
+    backgroundColor: "#70a5f9",
+    borderRadius:40,
+    width: "50%"
+  },
+  textos: {
+    padding: 15
+  },
+  inputs: {        
+    width: 125,
+    height: 50,
+    backgroundColor: 'grey'
+  }
 
+});
 export default connect(mapStateToProps)(DashboardScreen)
