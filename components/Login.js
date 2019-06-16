@@ -46,7 +46,7 @@ class LoginScreen extends React.Component
       let correo = this.state.correo;
       let password = this.state.password;
     await this.setState({"isLoading": true});
-    let res = await axios.post('https://ivorystack.com/mainbk/public/api/login', {
+    let res = await axios.post('http://192.168.43.27/gelatin/public/api/login', {
         email: correo,
         password: password
     })
@@ -60,10 +60,13 @@ class LoginScreen extends React.Component
     if(res.success == 1)
     {        
         await this.setState({
-            "isLoading": false,
-            "token": res.token
+            "isLoading": false
         });
-        this.props.navigation.navigate('Dashboard', {token:res.token})
+        await this.props.dispatch({
+          type: "SET_TOKEN",
+          payload: {token:res.token}
+        });
+        this.props.navigation.navigate('HomeWrapper')
     }
     else
     {   
@@ -136,4 +139,4 @@ const styles = StyleSheet.create({
 
   });
 
-export default connect(mapStateToProps)(LoginScreen)
+export default connect(null)(LoginScreen)

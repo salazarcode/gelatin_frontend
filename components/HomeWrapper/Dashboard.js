@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -27,7 +27,7 @@ class DashboardScreen extends React.Component
     });
     await axios({
       method: 'post',
-      url: 'https://ivorystack.com/mainbk/public/api/logout',
+      url: 'http://192.168.43.27/gelatin/public/api/logout',
       headers: {"token": this.state.token}
     })
     .then(function (response) {
@@ -87,3 +87,26 @@ const styles = StyleSheet.create({
 
 });
 export default connect(mapStateToProps)(DashboardScreen)
+*/
+import React from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { connect } from 'react-redux'
+
+class Dashboard extends React.Component 
+{    
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>    
+        <Text>Dashboard</Text> 
+      </View>
+    );
+  }
+}
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
+export default connect(null)(Dashboard)
