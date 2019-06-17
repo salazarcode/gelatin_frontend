@@ -34,7 +34,7 @@ class OpcionesScreen extends React.Component
             <Text style={{textAlign:'center', fontSize: 12}}>Ahora es el mejor momento</Text>   
           </View>
   
-            <Button icon="airplanemode-active" mode="contained" style={styles.boton} onPress={() => this.props.navigation.navigate('Registro')}>
+            <Button icon="airplanemode-active" mode="contained" style={styles.boton} onPress={() => this.props.navigation.navigate('Paso1')}>
                 REGISTRATE
             </Button>
             <View style={{padding: 10}} />

@@ -41,12 +41,13 @@ class LoginScreen extends React.Component
       isLoading: false,
       token: ""
     };
+    this.login = this.login.bind(this)
   }  
   async login(){
       let correo = this.state.correo;
       let password = this.state.password;
     await this.setState({"isLoading": true});
-    let res = await axios.post('http://192.168.43.27/gelatin/public/api/login', {
+    let res = await axios.post("https://ivorystack.com/mainbk/public/api/" + 'login', {
         email: correo,
         password: password
     })

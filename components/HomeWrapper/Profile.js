@@ -16,23 +16,36 @@ class Profile extends React.Component
     super(props);
     this.logout = this.logout.bind(this)    
     this.state = {
-      isLoading: false
+      //isLoading: false
     };
   } 
 
   
-  async logout(){
-    const {token} = this.props.state.token;
-    console.log(token);/*
-    let res = await axios({
+  async logout(token){
+    let ruta = "https://ivorystack.com/mainbk/public/api/"
+
+    let conf = {
       method: 'post',
-      url: 'http://192.168.43.27/gelatin/public/api/logout',
+      url: ruta + 'logout',
       headers: {"token": token}
-    })
+    };
+    let res = await axios(conf)
     .then((response)=> {
       return response.data
-    });    
-    console.log(res);*/
+    })
+    .catch(()=>{}); 
+    
+    this.props.dispatch({
+      type: "SALIR",
+      payload: {
+        estaFuera: true
+      }
+    });
+
+    console.log(this.props)
+
+
+
   }  
   render() {
     return (
@@ -40,11 +53,19 @@ class Profile extends React.Component
         <Text>Profile {this.props.state.token}</Text>
         <Button 
           title="Salir" 
-          onPress={(ev)=>{this.logout()}}
+          onPress={(ev)=>{this.logout(this.props.state.token)}}
           style={styles.boton}
           loading={this.state.isLoading}
         >
           Salir
+        </Button>
+        <Button 
+          title="aux" 
+          onPress={(ev)=>{console.log(this)}}
+          style={styles.boton}
+          loading={this.state.isLoading}
+        >
+          Auxiliar
         </Button>
       </View>
     );

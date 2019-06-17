@@ -10,6 +10,8 @@ import Paso3 from '../components/Registro/Paso3'
 import Paso4 from '../components/Registro/Paso4'
 import Paso5 from '../components/Registro/Paso5'
 
+import Profile from '../components/HomeWrapper/Profile'
+
 const AppNavigator = createStackNavigator({
   Presentacion: PresentacionScreen,
   Opciones: OpcionesScreen,

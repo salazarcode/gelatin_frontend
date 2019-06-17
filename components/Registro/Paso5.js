@@ -25,8 +25,9 @@ class Paso4 extends React.Component
     this.onRegister = this.onRegister.bind(this);
   }  
 
-  async onRegister(){    
-    let res = await axios.post('http://192.168.43.27/gelatin/public/api/register', this.props.state)
+  async onRegister(){        
+    let ruta = "https://ivorystack.com/mainbk/public/api/";
+    let res = await axios.post(ruta + 'register', this.props.state)
     .then(function (response) {
       return response.data
     })
