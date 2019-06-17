@@ -34,18 +34,13 @@ class Paso4 extends React.Component
     .catch(function (error) {
       console.log(error);
     });
-    console.log(res);
-    if(res.success == 1)
-    {
-      this.props.dispatch({
-        type: "SET_TOKEN",
-        payload: {token:response.data}
-      });
-      
-    } 
+
+    await this.props.dispatch({
+      type: "SET_TOKEN",
+      payload: {token:res}
+    });
     
     this.props.navigation.navigate("HomeWrapper")
-
   }
 
 
