@@ -1,12 +1,10 @@
 import { createStore } from 'redux'
+//import Reducer from './reducers/MainReducer'
 
 function MainReducer(state = {}, action){
     switch (action.type) {
         case "SET_TOKEN":
             state.token = action.payload.token;
-            return state
-        case "SALIR":
-            state.estaFuera = true;
             return state
         case "PASO1":
             const {
@@ -71,6 +69,7 @@ function MainReducer(state = {}, action){
       }
 }
 
+
 const store = createStore(MainReducer, {
     token:"",
     estaFuera: false,
@@ -92,10 +91,7 @@ const store = createStore(MainReducer, {
     actividad_fisica_meta:undefined,
     profile_picture:"",
     email: undefined,
-    password: undefined,
-    dev: "http://192.168.43.27/gelatin/public/api/",
-    prod: "https://ivorystack.com/mainbk/public/api/",
-    enDesarrollo: true
+    password: undefined
 });
 
 export default store

@@ -24,7 +24,7 @@ const AppNavigator = createStackNavigator({
   Paso5: Paso5
 },
 {
-  initialRouteName: "Presentacion"
+  initialRouteName: "HomeWrapper"
 });
 
 const AppContainer = createAppContainer(AppNavigator);

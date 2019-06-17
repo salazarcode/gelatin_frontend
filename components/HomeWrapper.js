@@ -23,7 +23,7 @@ class HomeWrapper extends React.Component {
         header: null
     }
     state = {
-        index: 0,
+        index: 2,
         routes: [
         { key: 'Profile', title: 'Profile', icon: 'account-circle', color: 'silver'  },
         { key: 'Chat', title: 'Chat', icon: 'chat', color: 'silver'  },
@@ -35,18 +35,18 @@ class HomeWrapper extends React.Component {
 
     _handleIndexChange = index => this.setState({ index });
 
-    /*_renderScene = BottomNavigation.SceneMap({
+    _renderScene = BottomNavigation.SceneMap({
         Profile: Profile,
         Chat:Chat,
         Dashboard: Dashboard,
         Desafios: Desafios,
         Recetas: Recetas
-    });*/
-
+    });
+    /*
     _renderScene = ({ route, jumpTo }) => {
             switch (route.key) {
             case 'Profile':
-                return <Profile salida={{ nav : this.props.navigation }} jumpTo={jumpTo} />;
+                return <Profile jumpTo={jumpTo} />;
 
             case 'Chat':
                 return <Chat jumpTo={jumpTo} />;
@@ -60,20 +60,16 @@ class HomeWrapper extends React.Component {
             case 'Recetas':
                 return <Recetas jumpTo={jumpTo} />;
         }
-      }
+      }*/
 
     render() {
-        const {estaFuera} = this.props.state.estaFuera;
-        if(estaFuera)
-            this.props.navigation.navigate("Opciones");
-        else
-            return(
-                <BottomNavigation
-                    navigationState={this.state}
-                    onIndexChange={this._handleIndexChange}
-                    renderScene={this._renderScene}
-                />
-            )
+        return(
+            <BottomNavigation
+                navigationState={this.state}
+                onIndexChange={this._handleIndexChange}
+                renderScene={this._renderScene}
+            />
+        )
     }
 }
 
