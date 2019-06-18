@@ -1,7 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button,ScrollView} from 'react-native';
-import { Surface, IconButton, Divider } from 'react-native-paper';
+import { Surface, IconButton, Divider, Badge } from 'react-native-paper';
 import { connect } from 'react-redux'
+import Chip from './Chip'
+
+
+
 import Actividades from './Cards/Actividades'
 import Comidas from './Cards/Comidas'
 import Agua from './Cards/Agua'
@@ -57,9 +61,25 @@ class Dashboard extends React.Component
           flexDirection: 'row',
           alignItems: "center",
         }}>
-          <Surface style={{marginTop: 10, marginLeft: 20, marginRight: 20, marginBottom: 10,width: "90%", elevation:theElevation, borderRadius:20, height: theSize, backgroundColor: '#062f70',  alignSelf: "center", padding: 20}} >
-            <Text style={{color:"white", fontWeight:"400", fontSize: 16}}>Alarma: 04:30PM</Text>
-            <Text style={{color:"white", fontWeight:"400", fontSize: 16}}>Ciclismo por la mañana</Text>
+          <Surface style={{marginTop: 10, marginLeft: 20, marginRight: 20, marginBottom: 10,width: "90%", elevation:theElevation, borderRadius:20, height: 100, backgroundColor: '#062f70',  alignSelf: "center", padding: 20}} >
+            <Text style={{color:"white", fontWeight:"600", fontSize: 14}}>Alarma: 04:30PM</Text>
+            <Text style={{color:"white", fontWeight:"400", fontSize: 14}}>Ciclismo por la mañana</Text>
+            <Divider style={{ backgroundColor: 'white', marginTop: 5, marginBottom:5 }}/>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+
+              <View style={{ 
+                  width: 60, 
+                  height: 20, 
+                  justifyContent: 'center',
+                  alignItems: 'center'         
+              }}>
+                  <Text style={{color:"white"}}>Repetir</Text>
+              </View>
+
+              <Chip texto="5min" fontColor="white" bgColor="#062f70"/>
+              <Chip texto="10min" fontColor="white" bgColor="blue"/>
+              <Chip texto="15min" fontColor="white" bgColor="#062f70"/>
+            </View>
           </Surface>   
         </View>
         
