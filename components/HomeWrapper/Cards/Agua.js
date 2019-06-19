@@ -1,24 +1,30 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button,ScrollView} from 'react-native';
+import { StyleSheet, Text, View, Button,ScrollView, Image} from 'react-native';
 import { Surface, IconButton, Divider } from 'react-native-paper';
 import { connect } from 'react-redux'
+import aguaImg from '../../../assets/agua.jpg'
+
+import Card from '../../dumbs/MyCard'
 
 class Agua extends React.Component 
 {    
   render() {
-    const theColor = "#3fc8ea";
-    const theElevation = 4;
-    const theSize = 200;
     return (
-      <View styles={{
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: "center"          
-      }}>
-        <Surface style={{marginTop: 10, marginLeft: 20, marginRight: 20, marginBottom: 10,width: "90%", elevation:theElevation, borderRadius:20, height: theSize, backgroundColor: 'white', padding: 20, alignSelf: "center"}} >
-          <Text style={{color:theColor, fontWeight:"400", fontSize: 16}}>Agua</Text>
-        </Surface>   
-      </View>
+      <Card>
+        <View style={{height:100, width:"auto", flexDirection: 'row', padding: 10}}>
+          <Image style={{height:100, width:100}} source={aguaImg}/>
+          <View styles={{height:100, width:"100%",flexDirection: 'column',justifyContent: 'center',}}>
+            <Text>AGUA</Text>
+            <Text>¡Realiza un registro del agua que ingeriste</Text> 
+            <Text>Hoy y asegúrat de estar hidratado!</Text>            
+          </View>
+        </View>
+
+        <Divider style={{marginTop: 7.5, marginBottom:7.5}} />
+
+        <Text style={{marginLeft:10, marginBottom:15, color:"navy", fontSize:14, fontWeight:"600"}}>Agregar un vaso de agua</Text> 
+        
+      </Card>
     );
   }
 }

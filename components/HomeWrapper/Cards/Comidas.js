@@ -1,116 +1,44 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button,ScrollView} from 'react-native';
+import { StyleSheet, Text, View, Button,ScrollView, Image} from 'react-native';
 import { Surface, IconButton, Divider } from 'react-native-paper';
 import { connect } from 'react-redux'
+import hamburguesaImg from '../../../assets/hamburger.jpg'
+
+import Card from '../../dumbs/MyCard'
 
 class Comidas extends React.Component 
 {    
   render() {
-    const theColor = "#3fc8ea";
-    const theElevation = 4;
-    const theSize = 200;
     return (
-        <View styles={{
-          flex: 1,
-          flexDirection: 'row',
-          alignItems: "center"          
-        }}>
-          <Surface style={{marginTop: 10, marginLeft: 20, marginRight: 20, marginBottom: 10,width: "90%", elevation:theElevation, borderRadius:20, height: theSize, backgroundColor: 'white', padding: 20, alignSelf: "center"}} >
-            <Text style={{color:theColor, fontWeight:"400", fontSize: 16}}>Comida</Text>
-          </Surface>   
-        </View>
+        <Card>
+          <View style={{height:100, width:"auto", flexDirection: 'row', padding: 10}}>
+            <Image style={{height:100, width:100}} source={hamburguesaImg}/>
+            <View styles={{height:100, width:"100%",flexDirection: 'column',justifyContent: 'center',}}>
+              <Text>COMIDAS</Text>
+              <Text>¡Realiza un registro de lo que comiste</Text>  
+              <Text>Hoy de forma interactiva!</Text>            
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', padding: 10, marginTop:10}}>
+            <Image style={{height:80, width:80,}} source={hamburguesaImg}/>
+            <Image style={{height:80, width:80, marginLeft:5}} source={hamburguesaImg}/>
+            <Image style={{height:80, width:80, marginLeft:5}} source={hamburguesaImg}/>
+          </View>
+
+          <Divider style={{marginTop: 7.5, marginBottom:7.5}} />
+
+          <Text style={{marginLeft:10, marginBottom:15, color:"navy", fontSize:14, fontWeight:"600"}}>Agregar una comida</Text> 
+        </Card>
     );
-  }
+  } 
 }
 
+
+const theColor = "#3fc8ea";
+const theElevation = 4;
+const theSize = 200;
+
 const styles = StyleSheet.create({
-  SurfaceAlarmBtn: {
-    position: 'absolute', 
-    height:35, 
-    width:35, 
-    right: 0, 
-    borderRadius:20, 
-    justifyContent: 'center', 
-    alignItems: 'center',
-    backgroundColor: "white",
-    elevation: 7
-  },
-  container: {
-    flex:1,
-    display: "flex",
-    flexDirection: "column"
-  },
-  headerAll: {    
-    width: "100%",
-    padding: 20
-  },
-  titulosView: {
-    height: "10%",
-    width: "100%"
-  },
-  headerT:{
-    color:"white",
-    fontWeight: "800"
-  },
-  caja_1: {
-    padding: 20,
-    backgroundColor: "#3fc8ea",
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  cajitas_laterales: {
-    width: 95, 
-    height: 50,
-    backgroundColor: "white",
-    borderRadius: 50,
-    elevation: 7, 
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cajita_central: {
-    width: 110, 
-    height: 110,
-    backgroundColor: "white",
-    borderRadius: 70,
-    elevation: 7, 
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textoCentral: {
-    color:"red",
-    textAlign: "center",
-    fontWeight:"800"
-  },
-
-  SurfaceCalorias:{
-    width: "60%",
-    height: "12%",
-    margin: 10,
-    padding: 10,
-    elevation: 7,
-    alignSelf: "center",
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  SurfaceAlarmas:{
-    width: "100%",
-    height: "12%",
-    margin: 20,
-    padding: 5,
-    elevation: 7,
-    alignSelf: "center",
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  CaloriasText: {
-    color: "#3fc8ea",
-    fontWeight: "800"
-  }
-
 });
 export default connect(null)(Comidas)

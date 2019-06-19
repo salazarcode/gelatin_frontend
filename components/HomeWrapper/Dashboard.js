@@ -2,14 +2,15 @@ import React from 'react';
 import { StyleSheet, Text, View, Button,ScrollView} from 'react-native';
 import { Surface, IconButton, Divider, Badge } from 'react-native-paper';
 import { connect } from 'react-redux'
-import Chip from './Chip'
+import Chip from '../dumb/Chip'
 
 
 
 import Actividades from './Cards/Actividades'
+import ComoTeSientes from './Cards/ComoTeSientes'
 import Comidas from './Cards/Comidas'
 import Agua from './Cards/Agua'
-import Cardiovasculares from './Cards/Cardiovasculares'
+import DatosCardiovasculares from './Cards/DatosCardiovasculares'
 import Alarmas from './Cards/Alarmas'
 import Header from './Cards/Header'
 import Fecha from './Cards/Fecha'
@@ -82,12 +83,14 @@ class Dashboard extends React.Component
             </View>
           </Surface>   
         </View>
-        
-        <Comidas/>        
-        <Agua/>        
-        <Alarmas/>        
-        <Cardiovasculares/>
-        <Actividades/>
+                
+        <Comidas/>    
+        <Agua/>     
+        <Alarmas/>    
+        <DatosCardiovasculares/>  
+        <Actividades/>       
+        <ComoTeSientes/>        
+
       </ScrollView>
     );
   }

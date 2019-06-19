@@ -5,17 +5,23 @@ import { connect } from 'react-redux'
 
 import Card from '../../dumbs/MyCard'
 
-class Actividades extends React.Component 
+class ComoTeSientes extends React.Component 
 {    
   render() {
     return (
-      <Card>
-        <Text style={{marginLeft:20, marginBottom:20}}>Actividades</Text>           
-      </Card>
+        <Card>
+          <Text style={{marginLeft:20, marginBottom:20}}>¿Cómo te sientes?</Text>           
+        </Card>
     );
   }
 }
 
+
+const theColor = "#3fc8ea";
+const theElevation = 4;
+const theSize = 200;
+
 const styles = StyleSheet.create({
+
 });
-export default connect(null)(Actividades)
+export default connect(null)(ComoTeSientes)
