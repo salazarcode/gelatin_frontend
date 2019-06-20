@@ -10,7 +10,7 @@ class MyCard extends React.Component
           height: this.props.height,
           backgroundColor:"#fff7fe",
 
-          shadowOffset:{  width: 4,  height: 4,  },
+          shadowOffset:{  width: 4,  height: 4  },
           shadowColor: 'silver',
           shadowOpacity: 0.1,
 

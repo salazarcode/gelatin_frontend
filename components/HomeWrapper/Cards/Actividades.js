@@ -9,7 +9,7 @@ class Actividades extends React.Component
 {    
   render() {
     return (
-      <Card width="90%" padding="20">
+      <Card width="90%" padding={20}>
         <Text style={{
           marginLeft:20, 
           marginBottom:20}}>Actividades</Text>           

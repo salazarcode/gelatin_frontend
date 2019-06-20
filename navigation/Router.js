@@ -10,10 +10,6 @@ import Paso3 from '../components/Registro/Paso3'
 import Paso4 from '../components/Registro/Paso4'
 import Paso5 from '../components/Registro/Paso5'
 
-import Profile from '../components/HomeWrapper/Profile'
-
-import Example from '../components/dumbs/BottomMenu'
-
 const AppNavigator = createStackNavigator({
   Presentacion: PresentacionScreen,
   Opciones: OpcionesScreen,
@@ -24,7 +20,6 @@ const AppNavigator = createStackNavigator({
   Paso3: Paso3,
   Paso4: Paso4,
   Paso5: Paso5,
-  Example: Example
 },
 {
   initialRouteName: "HomeWrapper"

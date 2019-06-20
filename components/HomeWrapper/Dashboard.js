@@ -22,17 +22,6 @@ import {
   styles
 } from '../../styles/dashboard'
 
-/*
-          <View styles={{height:50, width:50, backgroundColor:"green"}}>
-            <IconButton
-                  icon="notifications-active"
-                  color="white"
-                  size={20}
-                  onPress={() => console.log('Pressed')}
-                />    
-          </View> 
-*/
-
 class Dashboard extends React.Component 
 {    
   render() {
@@ -41,7 +30,7 @@ class Dashboard extends React.Component
  
         <Header/>
 
-        <Card width="60%" height="3%" padding="20" alignItems="center" justifyContent="center">
+        <Card width="60%" height="3%" padding={20} alignItems="center" justifyContent="center">
           <Text>300 Calorias Quemadas</Text>
         </Card>
         
@@ -52,14 +41,14 @@ class Dashboard extends React.Component
           marginLeft: "5%",
           marginRight: "5%"
         }}>            
-          <Card width="40%" height="75%" backgroundColor="#3FC1C9"  padding="20" alignItems="center" justifyContent="center">
+          <Card width="50%" height={40} backgroundColor="#3FC1C9"  padding={20} alignItems="center" justifyContent="center">
             <Text style={{color:"white", fontSize:12, fontWeight: "700"}}>ACTUALIZAR PESO</Text>
           </Card>
-          <Card width="60" height="60" backgroundColor="#3FC1C9" padding="20" borderRadius="50%" alignItems="center" justifyContent="center">
+          <Card width={40} height={40} backgroundColor="#3FC1C9" padding={20} borderRadius={30} alignItems="center" justifyContent="center">
             <IconButton
                     icon="notifications-active"
                     color="white"
-                    size={25}
+                    size={20}
                     onPress={() => console.log('Pressed')}
                   /> 
           </Card> 
