@@ -9,10 +9,7 @@ class MyCard extends React.Component
           width:this.props.width, 
           height: this.props.height,
           backgroundColor:"#fff7fe",
-
-          shadowOffset:{  width: 4,  height: 4  },
-          shadowColor: 'silver',
-          shadowOpacity: 0.1,
+          elevation: 7,
 
           alignSelf: "center",
           borderRadius: this.props.borderRadius != undefined ? this.props.borderRadius : 20,

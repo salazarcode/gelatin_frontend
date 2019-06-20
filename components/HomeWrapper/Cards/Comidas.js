@@ -13,7 +13,7 @@ class Comidas extends React.Component
         <Card width="90%" padding={20}>
           <View style={{height:100, width:"auto", flexDirection: 'row', padding: 10}}>
             <Image style={{height:100, width:100}} source={hamburguesaImg}/>
-            <View styles={{height:100, width:"100%",flexDirection: 'column',justifyContent: 'center',}}>
+            <View styles={{height:100, width:"100%",flexDirection: 'column', justifyContent: 'center'}}>
               <Text>COMIDAS</Text>
               <Text>¡Realiza un registro de lo que comiste</Text>  
               <Text>Hoy de forma interactiva!</Text>            

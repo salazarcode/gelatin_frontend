@@ -84,9 +84,7 @@ class HomeWrapper extends React.Component {
                 inactiveColor="#e539c8"
                 activeColor="#e539c8"
                 barStyle={{ 
-                    shadowOffset:{  width: 0,  height: -3,  },
-                    shadowColor: 'black',
-                    shadowOpacity: 0.1,
+                    elevation:7
                 }}
             />
         )

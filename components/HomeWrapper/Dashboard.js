@@ -30,7 +30,7 @@ class Dashboard extends React.Component
  
         <Header/>
 
-        <Card width="60%" height="3%" padding={20} alignItems="center" justifyContent="center">
+        <Card width="60%" height="2.5%" padding={20} alignItems="center" justifyContent="center">
           <Text>300 Calorias Quemadas</Text>
         </Card>
         
@@ -39,7 +39,7 @@ class Dashboard extends React.Component
           flexDirection: 'row',
           justifyContent: "space-between",
           marginLeft: "5%",
-          marginRight: "5%"
+          marginRight: "5%",
         }}>            
           <Card width="50%" height={40} backgroundColor="#3FC1C9"  padding={20} alignItems="center" justifyContent="center">
             <Text style={{color:"white", fontSize:12, fontWeight: "700"}}>ACTUALIZAR PESO</Text>
@@ -52,7 +52,6 @@ class Dashboard extends React.Component
                     onPress={() => console.log('Pressed')}
                   /> 
           </Card> 
-
         </View>   
         
         <Fecha/>

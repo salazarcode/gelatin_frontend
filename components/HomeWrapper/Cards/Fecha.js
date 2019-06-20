@@ -2,14 +2,15 @@ import React from 'react';
 import { StyleSheet, Text, View, Button,ScrollView} from 'react-native';
 import { Surface, IconButton, Divider } from 'react-native-paper';
 import { connect } from 'react-redux'
+import moment from 'moment-with-locales-es6'
 
 class Fecha extends React.Component 
 
 {    
   render() {
     const theColor = "#3fc8ea";
-    let aux = new Date();
-    let date = aux.toLocaleDateString("es-ES", options);
+    let date = moment().locale("es").format("LLLL");
+
 
     return (
         <View styles={styles.viewWrapper}>
@@ -23,7 +24,6 @@ class Fecha extends React.Component
 
 const theElevation = 4;
 const theSize = 200;
-const options = {weekday: "long", year: "numeric", month: "long", day: "numeric"};
 const styles = StyleSheet.create({
   surface: {
     marginTop: 10, 
