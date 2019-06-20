@@ -59,8 +59,7 @@ const styles = StyleSheet.create({
     logo: {
       width: 100, 
       height: 100,
-      paddingBottom: 30//, 
-      //borderRadius:100
+      paddingBottom: 30
     },
     boton: {
       backgroundColor: "#70a5f9",

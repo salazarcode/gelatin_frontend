@@ -1,27 +1,27 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button,ScrollView} from 'react-native';
-import { Surface, IconButton, Divider } from 'react-native-paper';
-import { connect } from 'react-redux'
+import {Text, View} from 'react-native';
 
-class Chip extends React.Component { 
+export default class Chip extends React.Component { 
     constructor(props){
         super(props)
-    }
-   
+    }   
     render() {
-        const {fontColor, bgColor, texto} = this.props;
-        return (
-            <View style={{
-                backgroundColor: bgColor, 
-                width: 60, 
-                height: 20, 
-                justifyContent: 'center',
-                alignItems: 'center'         
-            }}>
-                <Text style={{color:fontColor}}>{texto}</Text>
-            </View>
-        );
+        return(
+          <View style={{
+            height:40, 
+            width:"auto", 
+            backgroundColor:"#364F6B", 
+            marginLeft:5, 
+            marginRight:5,
+            borderRadius:5,
+            padding:5,
+            alignItems:"flex-start",
+            justifyContent:"center"
+          }}>
+            <Text style={{color:"white", fontSize:12,  fontFamily:"NunitoBold",}}>{this.props.line1}</Text>
+            <Text style={{color:"white", fontSize:12,  fontFamily:"NunitoBold",}}>{this.props.line2}</Text>
+          </View>             
+        )
+
     }
 }
-
-export default connect(null)(Chip)

@@ -12,7 +12,7 @@ class Actividades extends React.Component
       <Card width="90%" padding={20}>
         <Text style={{
           marginLeft:20, 
-          marginBottom:20}}>Actividades</Text>           
+          marginBottom:20, fontFamily:"NunitoBold",}}>Actividades</Text>           
       </Card>
     );
   }

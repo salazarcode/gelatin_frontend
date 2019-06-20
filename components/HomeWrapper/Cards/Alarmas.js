@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Button,ScrollView, Image} from 'react-native';
 import { Surface, IconButton, Divider } from 'react-native-paper';
 import { connect } from 'react-redux'
 import alarmImg from '../../../assets/alarm.png'
+import CardFooter from '../../dumbs/CardFooter'
+import Chip from '../../dumbs/Chip'
 
 import Card from '../../dumbs/MyCard'
 
@@ -12,30 +14,22 @@ class Alarmas extends React.Component
     return (
       <Card width="90%" padding={20}>
         <View style={{height:100, width:"auto", flexDirection: 'row', padding: 10}}>
-          <Image style={{height:100, width:100}} source={alarmImg}/>
+          <Image style={{height:100, width:80, marginRight:10}} source={alarmImg}/>
           <View styles={{height:100, width:"100%",flexDirection: 'column',justifyContent: 'center',}}>
-            <Text>Alarmas</Text>
-            <Text>¡Agrega la alrma que necesitas y</Text>    
-            <Text>Y lleva un control de tu tiempo!</Text>            
+            <Text style={{color:"#FC5185", fontSize:14,  fontFamily:"NunitoBold",}}>ALARMAS</Text>
+            <Text style={{color:"black", fontSize:12,  fontFamily:"NunitoBold",}}>¡Agrega la alarma que</Text>    
+            <Text style={{color:"black", fontSize:12,  fontFamily:"NunitoBold",}}>necesitas y lleva un control</Text>     
+            <Text style={{color:"black", fontSize:12,  fontFamily:"NunitoBold",}}>control de tu tiempo!</Text>            
           </View>
         </View>
 
         <View style={{flexDirection: 'row', padding: 10, marginTop:10}}>
-          <View style={{height:40, width:"auto", backgroundColor:"navy", marginLeft:5, marginRight:5}}>
-            <Text styles={{color:"white", fontWeight:"400", fontSize: 9}}>Ciclismo Matutino</Text>
-            <Text styles={{color:"white", fontWeight:"400", fontSize: 12}}>05:35pm</Text>
-          </View>
-          <View style={{height:40, width:"auto", backgroundColor:"navy", marginLeft:5, marginRight:5}}>
-            <Text styles={{color:"white", fontWeight:"400", fontSize: 9}}>Ciclismo Matutino</Text>
-            <Text styles={{color:"white", fontWeight:"400", fontSize: 12}}>05:35pm</Text>
-          </View>
+          <Chip  line1="Ciclismo Matutino" line2="05:35pm" />
+          <Chip  line1="Correr" line2="06:30am" />
         </View>
 
         <Divider style={{marginTop: 7.5, marginBottom:7.5}} />
-
-        <Text style={{marginLeft:10, marginBottom:15, color:"navy", fontSize:14, fontWeight:"600"}}>
-          Agregar una comida
-        </Text>         
+        <CardFooter texto="Agregar alarma" onRightPressed={()=>console.log("Right Pressed")} onLeftPressed={()=>console.log("Left pressed")}/>
       </Card>
     );
   }

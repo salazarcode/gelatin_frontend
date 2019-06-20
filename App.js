@@ -1,20 +1,51 @@
 import React from 'react';
+import { Text, View } from 'react-native';
 import AppContainer from './navigation/Router';
 
 import { Provider as PaperProvider } from 'react-native-paper';
+
+import * as Font from 'expo-font'
 
 import { Provider } from 'react-redux';
 import store from './store/Store';
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <PaperProvider>
-        <Provider store={store}>
-          <AppContainer />
-        </Provider> 
-      </PaperProvider>
+  state = {
+    fontLoaded: false,
+  };
+  async componentDidMount() {
+    await Font.loadAsync({
+      'NunitoBold': require('./assets/fonts/Nunito-Bold.ttf'),      
+      'NunitoRegular': require('./assets/fonts/Nunito-Regular.ttf'),
+    });
 
-    );
+    this.setState({ fontLoaded: true });
+  }
+  render() {
+    if(this.state.fontLoaded)
+    {
+      return (
+        <PaperProvider>
+          <Provider store={store}>
+            <AppContainer />
+          </Provider> 
+        </PaperProvider>
+      );      
+    }
+    else{
+      return (
+        <View style={{
+          flex:1,
+          alignItems:"center",
+          justifyContent:"center"
+        }}>
+          <Text>GELATIN</Text>
+          <Text>Loading provisional</Text>
+          <Text>Cargando Recursos...</Text>
+        </View>
+      )
+    }
+      
+
   }
 }

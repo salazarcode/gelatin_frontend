@@ -10,7 +10,7 @@ class ComoTeSientes extends React.Component
   render() {
     return (
         <Card width="90%" padding={20}>
-          <Text style={{marginLeft:20, marginBottom:20}}>¿Cómo te sientes?</Text>           
+          <Text style={{marginLeft:20, marginBottom:20, fontFamily:"NunitoBold",}}>¿Cómo te sientes?</Text>           
         </Card>
     );
   }

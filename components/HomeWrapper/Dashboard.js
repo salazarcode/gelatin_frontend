@@ -1,10 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button,ScrollView} from 'react-native';
+import { StyleSheet, Text, View, Button,ScrollView, ImageBackground, Image } from 'react-native';
 import { Surface, IconButton, Divider, Badge } from 'react-native-paper';
 import { connect } from 'react-redux'
+import moment from 'moment-with-locales-es6'
 
 import Chip from '../dumbs/Chip'
 import Card from '../dumbs/MyCard'
+import MainHeader from '../dumbs/MainHeader'
 
 import Actividades from './Cards/Actividades'
 import ComoTeSientes from './Cards/ComoTeSientes'
@@ -12,8 +14,13 @@ import Comidas from './Cards/Comidas'
 import Agua from './Cards/Agua'
 import DatosCardiovasculares from './Cards/DatosCardiovasculares'
 import Alarmas from './Cards/Alarmas'
-import Header from './Cards/Header'
+import AlarmaPrincipal from './Cards/AlarmaPrincipal'
 import Fecha from './Cards/Fecha'
+
+import HeaderTransparente from '../../assets/header_transparente.png'
+import ii from '../../assets/header_transparente.png'
+
+import IconMenu from '../../assets/pngs/menu.png'
 
 import {
   theColor, 
@@ -26,71 +33,189 @@ class Dashboard extends React.Component
 {    
   render() {
     return (
-      <ScrollView style={{ flex:1, flexDirection: "column", backgroundColor: "#f5f5f5"}}>
- 
-        <Header/>
+        <ScrollView 
+          style={{ 
+            flexDirection: "column", 
+            backgroundColor: "#f5f5f5", 
+            marginTop:24
+          }} 
+          stickyHeaderIndices={[0]}
+        >
+            
+            <View 
+              style={{
+                height: 250,
+                width:"100%",
+                backgroundColor: "transparent",
+                zIndex:100
+            }}>
+                <View style={{
+                  height:50,
+                  width:"100%",
+                  flexDirection:"row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  backgroundColor:"white",
+                  zIndex:80,
 
-        <Card width="60%" height="2.5%" padding={20} alignItems="center" justifyContent="center">
-          <Text>300 Calorias Quemadas</Text>
-        </Card>
-        
-        <View style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: "space-between",
-          marginLeft: "5%",
-          marginRight: "5%",
-        }}>            
-          <Card width="50%" height={40} backgroundColor="#3FC1C9"  padding={20} alignItems="center" justifyContent="center">
-            <Text style={{color:"white", fontSize:12, fontWeight: "700"}}>ACTUALIZAR PESO</Text>
-          </Card>
-          <Card width={40} height={40} backgroundColor="#3FC1C9" padding={20} borderRadius={30} alignItems="center" justifyContent="center">
-            <IconButton
-                    icon="notifications-active"
-                    color="white"
-                    size={20}
-                    onPress={() => console.log('Pressed')}
-                  /> 
-          </Card> 
-        </View>   
-        
-        <Fecha/>
+                }}>
+                  
+                  <IconButton
+                          icon="dehaze"
+                          color="#3FC1C9"
+                          size={20}
+                          onPress={() => console.log('Pressed')}
+                        /> 
+                  <Text
+                    style={{
+                      backgroundColor: "#3FC1C9",
+                      color:"white",
+                      fontSize:12, 
+                      fontWeight: "500", 
+                      right:10,
+                      padding:5,
+                      width:"30%",
+                      borderRadius:20,
+                      textAlign:"center",
+                      fontFamily: "NunitoRegular",
+                      fontSize: 12                      
+                    }}
+                  >HAZTE PREMIUM</Text>
+                </View>
 
-        <View styles={{
-          flex: 1,
-          flexDirection: 'row',
-          alignItems: "center",
-        }}>
-          <Surface style={{marginTop: 10, marginLeft: 20, marginRight: 20, marginBottom: 10,width: "90%", elevation:theElevation, borderRadius:20, height: 100, backgroundColor: '#062f70',  alignSelf: "center", padding: 20}} >
-            <Text style={{color:"white", fontWeight:"600", fontSize: 14}}>Alarma: 04:30PM</Text>
-            <Text style={{color:"white", fontWeight:"400", fontSize: 14}}>Ciclismo por la mañana</Text>
-            <Divider style={{ backgroundColor: 'white', marginTop: 5, marginBottom:5 }}/>
-            <View style={{flex: 1, flexDirection: 'row'}}>
+                <Image
+                  source={ii}
+                  style={{
+                    height:200, 
+                    width:"100%", 
+                    zIndex:80,
+                }}
+                />
 
-              <View style={{ 
-                  width: 60, 
-                  height: 20, 
-                  justifyContent: 'center',
-                  alignItems: 'center'         
-              }}>
-                  <Text style={{color:"white"}}>Repetir</Text>
-              </View>
+                <View style={{
+                  height:200,
+                  width:"100%",
+                  top:50,
+                  position:"absolute",
+                  zIndex:99
+                }}>
+                  <Text style={{fontFamily:"NunitoBold", color:"white",paddingTop:15,paddingLeft:15}}>Dashboard</Text>
+                  <Text style={{fontFamily:"NunitoRegular", color:"white",paddingLeft:15}}>BIenvenido a Gelatin, Juan</Text>
 
-              <Chip texto="5min" fontColor="white" bgColor="#062f70"/>
-              <Chip texto="10min" fontColor="white" bgColor="blue"/>
-              <Chip texto="15min" fontColor="white" bgColor="#062f70"/>
+                  <View style={{
+                    flex:1,
+                    flexDirection:"row",
+                    paddingLeft:15,
+                    paddingRight: 15,
+                    alignItems:"center",
+                    justifyContent:"space-between"
+                  }}>
+                    <View style={{
+                      height:50, 
+                      width:90, 
+                      borderRadius:25,
+                      alignItems:"center",
+                      justifyContent:"center",
+                      backgroundColor:"white",
+                      elevation:7
+                    }}>
+                      <Text style={{color:"#3FC1C9", fontFamily:"NunitoBold", fontSize:14}}>03</Text>
+                      <Text style={{color:"#3FC1C9", fontFamily:"NunitoRegular", fontSize:14}}>COMIDAS</Text>
+                    </View>
+
+                    
+                    <View style={{
+                      height:120, 
+                      width:120, 
+                      borderRadius:60,
+                      alignItems:"center",
+                      justifyContent:"center",
+                      backgroundColor:"white",
+                      elevation:7
+                    }}>
+                      <Text style={{color:"#FC5185", fontSize:23,  fontFamily:"NunitoBold",}}>100</Text>
+                      <Text style={{color:"#FC5185", fontSize:14,  fontFamily:"NunitoRegular",}}>PASOS</Text>
+                    </View>
+
+                    
+                    <View style={{
+                      height:50, 
+                      width:90, 
+                      borderRadius:25,
+                      alignItems:"center",
+                      justifyContent:"center",
+                      backgroundColor:"white",
+                      elevation:7
+                    }}>
+                      <Text style={{color:"#3FC1C9", fontSize:14,  fontFamily:"NunitoBold",}}>05</Text>
+                      <Text style={{color:"#3FC1C9", fontSize:14,  fontFamily:"NunitoRegular",}}>AGUA</Text>
+                    </View>
+                    
+                  </View>    
+                </View>
+
+            
             </View>
-          </Surface>   
-        </View>
-                
-        <Comidas/>    
-        <Agua/>     
-        <Alarmas/>    
-        <DatosCardiovasculares/>  
-        <Actividades/>       
-        <ComoTeSientes/>        
 
-      </ScrollView>
+            <View style={{flex:1, zIndex:1}}>
+              <Card width="60%" height="2.5%" padding={20} alignItems="center" justifyContent="center">
+                <Text style={{color:"#3FC1C9", fontSize:14,  fontFamily:"NunitoBold",}}>300 Calorias Quemadas</Text>
+              </Card>
+              
+              <View style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: "space-between",
+                marginLeft: "5%",
+                marginRight: "5%",
+              }}>            
+                <Card 
+                  width="50%" 
+                  height={40} 
+                  backgroundColor="#3FC1C9"  
+                  paddingLeft={20} 
+                  paddingRight={20} 
+                  paddingBottom={20} 
+                  paddingTop={20} 
+                  alignItems="center" 
+                  justifyContent="center"
+                >
+                  <Text style={{color:"white", fontSize:12,  fontFamily:"NunitoBold"}}>ACTUALIZAR PESO</Text>
+                </Card>
+                <Card 
+                  width={40} 
+                  height={40} 
+                  backgroundColor="#3FC1C9"   
+                  paddingLeft={20} 
+                  paddingRight={20} 
+                  paddingBottom={20} 
+                  paddingTop={20} 
+                  borderRadius={30} 
+                  alignItems="center" 
+                  justifyContent="center"
+                >
+                  <IconButton
+                          icon="notifications-active"
+                          color="white"
+                          size={20}
+                          onPress={() => console.log('Pressed')}
+                        /> 
+                </Card> 
+              </View>   
+          
+              <Fecha />
+              <AlarmaPrincipal/>                
+              <Comidas/>    
+              <Agua/>     
+              <Alarmas/>    
+              <DatosCardiovasculares/>  
+              <Actividades/>       
+              <ComoTeSientes/>  
+            </View>
+
+
+
+        </ScrollView>
     );
   }
 }
