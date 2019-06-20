@@ -3,23 +3,13 @@ import { StyleSheet, Text, View, Button,ScrollView, Image} from 'react-native';
 import { Surface, IconButton, Divider } from 'react-native-paper';
 import { connect } from 'react-redux'
 
-/*
-        <View styles={styles.WrapperView}>
-          <Surface style={styles.WrapperSurface} >
-            <View styles={{flex:1}}>
-              <Image source={hamburguesaImg} />
-            </View>
-          </Surface>   
-        </View>
-
-
-*/
+import Card from '../../dumbs/MyCard'
 
 class DatosCardiovasculares extends React.Component 
 {    
   render() {
     return (
-        <Card>
+        <Card width="90%" padding="20">
           <Text style={{marginLeft:20, marginBottom:20}}>Datos Cardiovasculares</Text>           
         </Card>
     );

@@ -10,7 +10,7 @@ class Alarmas extends React.Component
 {    
   render() {
     return (
-      <Card>
+      <Card width="90%" padding="20">
         <View style={{height:100, width:"auto", flexDirection: 'row', padding: 10}}>
           <Image style={{height:100, width:100}} source={alarmImg}/>
           <View styles={{height:100, width:"100%",flexDirection: 'column',justifyContent: 'center',}}>

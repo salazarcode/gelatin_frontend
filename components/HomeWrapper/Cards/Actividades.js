@@ -9,8 +9,10 @@ class Actividades extends React.Component
 {    
   render() {
     return (
-      <Card>
-        <Text style={{marginLeft:20, marginBottom:20}}>Actividades</Text>           
+      <Card width="90%" padding="20">
+        <Text style={{
+          marginLeft:20, 
+          marginBottom:20}}>Actividades</Text>           
       </Card>
     );
   }
