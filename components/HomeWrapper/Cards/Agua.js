@@ -17,9 +17,9 @@ class Agua extends React.Component
           <Image style={{height:70, width:70, marginRight:15, marginBottom:15}} source={aguaImg}/>
           <View styles={{height:100, width:"100%",flexDirection: 'column',justifyContent: 'center',}}>
             <Text style={{color:"#FC5185", fontSize:14,  fontFamily:"NunitoBold",}}>AGUA</Text>
-            <Text style={{color:"black", fontSize:12,  fontFamily:"NunitoBold",}}>¡Realiza un registro del agua que </Text>
-            <Text style={{color:"black", fontSize:12,  fontFamily:"NunitoBold",}}>ingeriste hoy y asegúrate de estar</Text>
-            <Text style={{color:"black", fontSize:12,  fontFamily:"NunitoBold",}}>hidratado!</Text>
+            <Text style={{color:"black", fontSize:12,  fontFamily:"NunitoRegular", width:180, flexWrap: 'wrap'}}>
+              ¡Realiza un registro del agua que ingeriste hoy y asegúrate de estar hidratado!
+            </Text>  
           </View>
         </View>
 

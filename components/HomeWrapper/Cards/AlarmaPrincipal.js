@@ -17,25 +17,27 @@ class AlarmasPrincipal extends React.Component
         paddingLeft={20}
         paddingRight={20}
         paddingTop={10}
-        paddingBottom={10}
+        paddingBottom={20}
         backgroundColor="#364F6B"
       >
         <View style={{flexDirection: 'row', alignItems:"center", justifyContent:"space-between"}}>
-          <Text style={{color:"white", fontSize:14,  fontFamily:"NunitoBold",}}>ALARMA: 04:30PM</Text>
+          <View style={{flexDirection:"row", alignItems:"center", justifyContent:"flex-start" }}>
+            <IconButton
+                icon="directions-bike"
+                color="white"
+                size={20}      
+                style={{marginLeft:-6}}
+            /> 
+            <Text style={{color:"white", fontSize:18,  fontFamily:"NunitoBold", marginLeft:-10}}>CICLISMO</Text>
+          </View>
           <CheckAlarm/>
         </View>
-
-        <View style={{flexDirection: 'row', justifyContent:"space-between"}}>
-          <Text style={{color:"white", fontSize:14,  fontFamily:"NunitoRegular",}}>CICLISMO POR LA MAÑANA</Text>
-        </View>
-
-        <Divider style={{marginTop: 10, marginBottom:7.5, backgroundColor:"white"}} />
         
         <View style={{flexDirection: 'row',alignItems:"center", justifyContent:"flex-start"}}>
-          <Text style={{color:"white", fontSize:14,  fontFamily:"NunitoBold", marginRight:5}}>REPETIR</Text>
-          <AlarmChip>5min</AlarmChip>
-          <AlarmChip>10min</AlarmChip>
-          <AlarmChip>15min</AlarmChip>
+          <AlarmChip radius={5} margin={2}>Lu</AlarmChip>
+          <AlarmChip radius={5} margin={2}>Ma</AlarmChip>
+          <AlarmChip radius={5} margin={2}>Sa</AlarmChip>          
+          <Text style={{color:"white", fontSize:14,  fontFamily:"NunitoBold", marginLeft:5}}>04:30PM</Text>
         </View>
       </Card>
     );
