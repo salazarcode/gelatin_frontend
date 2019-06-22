@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Image, Platform } from 'react-native';
-import {Button} from 'react-native-paper'
+import {Button,Checkbox} from 'react-native-paper'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
@@ -13,7 +13,7 @@ function mapStateToProps(state){
   }
 }
 
-class LoginScreen extends React.Component 
+class Register extends React.Component 
 {        
   static navigationOptions = {
       header: null
@@ -24,45 +24,11 @@ class LoginScreen extends React.Component
       correo: "",
       password: "",
       isLoading: false,
-      token: ""
+      token: "",
+      checked1: false,
+      checked2: false
     };
-    this.login = this.login.bind(this)
   }  
-  async login(){
-      let correo = this.state.correo;
-      let password = this.state.password;
-    await this.setState({"isLoading": true});
-    let res = await axios.post("https://ivorystack.com/mainbk/public/api/" + 'login', {
-        email: correo,
-        password: password
-    })
-    .then(function (response) {
-        return response.data;
-    })
-    .catch(function (error) {
-        console.log(error);
-    });    
-    await this.setState({"isLoading": false});
-    if(res.success == 1)
-    {        
-        await this.setState({
-            "isLoading": false
-        });
-        await this.props.dispatch({
-          type: "SET_TOKEN",
-          payload: {token:res.token}
-        });
-        this.props.navigation.navigate('HomeWrapper')
-    }
-    else
-    {   
-        await this.setState({
-            "isLoading": false,
-            "token": res.message
-        });
-    }
-    
-    }
 
   render() {
     return (
@@ -75,11 +41,11 @@ class LoginScreen extends React.Component
         />
 
         <View style={{width:"100%", marginTop:"2%", marginBottom:"2%", height:"auto", alignItems:"center", justifyContent:"center"}}>
-          <Text style={{fontFamily:"NunitoBold", fontSize:30}}>Iniciar sesión</Text>
+          <Text style={{fontFamily:"NunitoBold", fontSize:30}}>Crear una cuenta</Text>
         </View>
         
         <View style={{width:"100%", marginTop:"2%", marginBottom:"2%", height:"auto", alignItems:"center", justifyContent:"center"}}>
-          <Text style={{fontFamily:"NunitoRegular", fontSize:12}}>INICIA SESIÓN CON FACEBOOK O GOOGLE</Text>
+          <Text style={{fontFamily:"NunitoRegular", fontSize:12}}>O CREALA CON UUNA CUENTA DE CORREO</Text>
         </View>
 
         <View style={{
@@ -127,7 +93,7 @@ class LoginScreen extends React.Component
 
         
         <View style={{width:"100%", marginTop:"6%", marginBottom:"2.5%", height:"auto", alignItems:"center", justifyContent:"center"}}>
-          <Text style={{fontFamily:"NunitoRegular", fontSize:12}}>O INICIA SESIÓN CON UN CORREO</Text>
+          <Text style={{fontFamily:"NunitoRegular", fontSize:12}}>O CREA UNA CUENTA CON TU CORREO</Text>
         </View>
 
         <TextInput
@@ -166,22 +132,56 @@ class LoginScreen extends React.Component
           placeholder="PASSWORD"
         />
 
+        <View style={{
+          width:"70%",
+          height:50,
+          flexDirection:"row",
+          alignItems:"center",
+          justifyContent:"center"
+        }}>
+          <Checkbox
+            status={this.state.checked1 ? 'checked' : 'unchecked'}
+            onPress={() => { this.setState({ checked1: !this.state.checked1 }); }}
+          />
+          <Text style={{fontFamily:"NunitoRegular", fontSize:10, flexWrap:"wrap"}}>
+            Me gustaría recibir ofertas especiales y noticias de GELATIN APP por correo electrónico.
+          </Text>
+        </View>
+
+        
+        <View style={{
+          width:"70%",
+          height:50,
+          flexDirection:"row",
+          alignItems:"center",
+          justifyContent:"center"
+        }}>
+          <Checkbox
+            status={this.state.checked2 ? 'checked' : 'unchecked'}
+            onPress={() => { this.setState({ checked2: !this.state.checked2 }); }}
+          />
+          <Text style={{fontFamily:"NunitoRegular", fontSize:10, flexWrap:"wrap"}}>
+            Estoy de acuerdo con los Términos y Condiciones y la política de privacidad de GELATIN APP.
+          </Text>
+        </View>
+
         <Button  
           mode="contained" 
           contentStyle={{
-            height: 50,
+            height: 40,
             width: 150
           }} 
           style={{
-            borderRadius:25,
+            borderRadius:20,
             marginTop: 10,
             elevation:7
           }}
           color={this.props.state.colores.azulClaro}
           onPress={() => this.props.navigation.navigate('Login')}
         >
-            <Text style={{fontFamily: "NunitoBold", fontSize:14, color:"white"}}>Iniciar sesión</Text>
+            <Text style={{fontFamily: "NunitoBold", fontSize:14, color:"white"}}>Register</Text>
         </Button>    
+        <FooterIniciarSesion navigator={this.props.navigation}/>    
       </View>
     );
   }
@@ -217,4 +217,4 @@ const styles = StyleSheet.create({
 
   });
 
-export default connect(mapStateToProps)(LoginScreen)
+export default connect(mapStateToProps)(Register)

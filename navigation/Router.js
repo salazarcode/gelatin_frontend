@@ -4,6 +4,7 @@ import PresentacionScreen from '../components/Presentacion'
 import OpcionesScreen from '../components/Opciones'
 import LoginScreen from '../components/Login'
 import HomeWrapper from '../components/HomeWrapper'
+import Register from '../components/Register'
 import Paso1 from '../components/Registro/Paso1'
 import Paso2 from '../components/Registro/Paso2'
 import Paso3 from '../components/Registro/Paso3'
@@ -14,6 +15,7 @@ const AppNavigator = createStackNavigator({
   Presentacion: PresentacionScreen,
   Opciones: OpcionesScreen,
   Login: LoginScreen,
+  Register: Register,
   HomeWrapper: HomeWrapper,
   Paso1: Paso1,
   Paso2: Paso2,
@@ -22,7 +24,7 @@ const AppNavigator = createStackNavigator({
   Paso5: Paso5,
 },
 {
-  initialRouteName: "HomeWrapper"
+  initialRouteName: "Presentacion"
 });
 
 const AppContainer = createAppContainer(AppNavigator);

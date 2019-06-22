@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
-import {Button} from 'react-native-paper'
+import { StyleSheet, Text, View, ScrollView, Image, SafeAreaView, Platform } from 'react-native';
+import {Button, IconButton} from 'react-native-paper'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
@@ -20,57 +20,84 @@ class OpcionesScreen extends React.Component
       this.state = {
       };
     }  
-    render() {
-  
+    render() {  
       return (
-        <ScrollView contentContainerStyle={styles.container}>
-          <Image
-            style={styles.corriendo}
-            source={require('../assets/corriendo.jpg')}
-          />
-          <View style={styles.textos}>
-            <Text style={{textAlign:'center', fontSize: 23}}>Hoy es la mejor</Text>
-            <Text style={{textAlign:'center', fontSize: 23}}>oportunidad.</Text>   
-            <Text style={{textAlign:'center', fontSize: 12}}>Ahora es el mejor momento</Text>   
-          </View>
-  
-            <Button icon="airplanemode-active" mode="contained" style={styles.boton} onPress={() => this.props.navigation.navigate('Paso1')}>
-                REGISTRATE
+        <SafeAreaView style={{
+          flex: 1, 
+          backgroundColor: this.props.state.colores.fondo, 
+          alignItems:"center", 
+          justifyContent:"center",
+          paddingTop: Platform.OS === 'android' ? 24 : 0
+        }}>
+            <Image
+              style={{
+                backgroundColor:"transparent",
+                width:300,
+                height:"50%",
+                position:"absolute",
+                right:0,
+                top: Platform.OS === 'android' ? 24 : 0
+              }}
+              source={require('../assets/imagen-referencial.png')}
+            />
+            <View style={{alignItems:"center", justifyContent:"center", marginTop: "90%"}}>
+              <Text style={styles.titulo}>Hoy es la mejor</Text>
+              <Text style={styles.titulo}>oportunidad.</Text>   
+              <Text style={styles.parrafo}>Ahora es el mejor momento</Text>   
+            </View>
+
+            <Button  
+              mode="contained" 
+              icon={require('../assets/registrate.png')}
+              contentStyle={{
+                height: 50,
+                width: 200
+              }} 
+              style={{
+                borderRadius:25,
+                elevation:7,
+              }}
+              color={this.props.state.colores.azulClaro}
+              onPress={() => this.props.navigation.navigate('Register')}
+            >
+                <Text style={{fontFamily: "NunitoRegular", fontSize:14, color:"white"}}>REGÍSTRATE</Text>
             </Button>
-            <View style={{padding: 10}} />
-            
-            <Button icon="home" mode="contained" style={styles.boton} onPress={() => this.props.navigation.navigate('Login')}>
-                INICIAR SESIÓN
+
+            <Button  
+              mode="contained" 
+              icon={require('../assets/iniciar-sesion.png')}
+              contentStyle={{
+                height: 50,
+                width: 200
+              }} 
+              style={{
+                borderRadius:25,
+                marginTop:10,
+                elevation:7
+              }}
+              color={this.props.state.colores.azulClaro}
+              onPress={() => this.props.navigation.navigate('Login')}
+            >
+                <Text style={{fontFamily: "NunitoRegular", fontSize:14, color:"white"}}>INICIAR SESIÓN</Text>
             </Button>
-        </ScrollView>
+        </SafeAreaView>
       );
     }
   }
 
   const styles = StyleSheet.create({
-    container: {
-      flex:1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    corriendo: {
-      height: '40%', 
-      width: '60%'
-    },
-    logo: {
-      width: 100, 
-      height: 100,
-      paddingBottom: 30
-    },
-    boton: {
-      backgroundColor: "#70a5f9",
-      borderRadius:40,
-      width: "50%"
-    },
-    textos: {
-      padding: 15
+    titulo: {
+      fontFamily: "NunitoBold",
+      fontSize: 30,
+      color:"rgba(0,0,0,0.6)"
+    },    
+    parrafo: {
+      fontFamily: "NunitoRegular",
+      fontSize: 18,
+      color:"rgba(0,0,0,0.6)",
+      marginTop:10,
+      marginBottom: -5
     }
-
   });
 
 export default connect(mapStateToProps)(OpcionesScreen)

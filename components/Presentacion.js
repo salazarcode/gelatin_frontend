@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
-import { Button, Card } from 'react-native-paper'
+import { StyleSheet, Text, View, Image, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-paper'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
@@ -12,63 +12,48 @@ function mapStateToProps(state){
 
 class PresentacionScreen extends React.Component 
 {    
+  constructor(props){
+    super(props)
+  }
   static navigationOptions = {
       header: null
   }
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }  
   render() {
 
     return (
-      <ScrollView contentContainerStyle={styles.container}> 
+      <View style={{flex:1, alignItems:"center", justifyContent:"center", backgroundColor:this.props.state.colores.fondo}}> 
         <Image
-          style={styles.logo}
-          source={require('../assets/logo-react.jpg')}
+          style={{width: 50, height:50, marginTop:20, marginBottom:20}}
+          source={require('../assets/logo.png')}
         />
         <Image
-          style={styles.hombre}
-          source={require('../assets/hombre.jpg')}
+          style={{width: "75%", height:300,borderRadius:50}}
+          source={require('../assets/foto-inicio.png')}
         />
-        <View style={styles.textos}>
-          <Text style={{textAlign:'center'}}>Adopta un estilo de vida</Text>
-          <Text style={{textAlign:'center'}}>Más saludable</Text>   
+        <View style={{width:"100%", marginTop:20, marginBottom:10, height:"auto", alignItems:"center", justifyContent:"center"}}>
+          <Text style={{fontFamily:"NunitoRegular", fontSize:14}}>Adopta un estilo de vida</Text>
+          <Text style={{fontFamily:"NunitoRegular", fontSize:14}}>Más saludable</Text>     
         </View>
 
-        <Button icon="" mode="contained" style={styles.boton} onPress={() => this.props.navigation.navigate('Opciones')}>
-            ¡Empecemos!
+        <Button  
+          mode="contained" 
+          contentStyle={{
+            height: 50,
+            width: 150
+          }} 
+          style={{
+            borderRadius:25,
+            marginTop: 10,
+            elevation:7
+          }}
+          color={this.props.state.colores.azulClaro}
+          onPress={() => this.props.navigation.navigate('Opciones')}
+        >
+            <Text style={{fontFamily: "NunitoBold", fontSize:14, color:"white"}}>¡EMPECEMOS!</Text>
         </Button>
-      </ScrollView>
+      </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex:1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    hombre: {
-      width: '70%', 
-      height: '40%', 
-      borderRadius:50
-    },
-    logo: {
-      width: 100, 
-      height: 100,
-      paddingBottom: 30
-    },
-    boton: {
-      backgroundColor: "#70a5f9",
-      borderRadius:40
-    },
-    textos: {
-      padding: 15
-    }
-
-  });
 
 export default connect(mapStateToProps)(PresentacionScreen)
