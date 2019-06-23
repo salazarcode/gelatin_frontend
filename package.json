@@ -19,6 +19,7 @@
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-circular-progress": "^1.1.0",
+    "react-native-elements": "^1.1.0",
     "react-native-multiple-select": "^0.5.2",
     "react-native-numeric-input": "^1.8.0",
     "react-native-paper": "^2.16.0",

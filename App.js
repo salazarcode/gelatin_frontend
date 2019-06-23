@@ -1,13 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import AppContainer from './navigation/Router';
-
 import { Provider as PaperProvider } from 'react-native-paper';
-
 import * as Font from 'expo-font'
-
 import { Provider } from 'react-redux';
-import store from './store/Store';
+
+import store from './src/store/Store';
+import AppContainer from './src/navigation/Router';
 
 export default class App extends React.Component {
   state = {
@@ -15,8 +13,8 @@ export default class App extends React.Component {
   };
   async componentDidMount() {
     await Font.loadAsync({
-      'NunitoBold': require('./assets/fonts/Nunito-Bold.ttf'),      
-      'NunitoRegular': require('./assets/fonts/Nunito-Regular.ttf'),
+      'NunitoBold': require('./src/assets/fonts/Nunito-Bold.ttf'),      
+      'NunitoRegular': require('./src/assets/fonts/Nunito-Regular.ttf'),
     });
 
     this.setState({ fontLoaded: true });
