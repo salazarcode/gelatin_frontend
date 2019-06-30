@@ -14,7 +14,7 @@ class FooterIniciarSesion extends React.Component
   render() {
     return (
       <View style={{
-        position:"absolute",
+        height:300,
         bottom:0,
         width:"100%",
         elevation:9

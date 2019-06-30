@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button } from 'react-native-paper';
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -50,9 +50,10 @@ class Profile extends React.Component
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>    
-        <Text>Profile {this.props.state.token}</Text>
+        <Text>GOOGLE: {this.props.state.google ? JSON.stringify(this.props.state.google) : ""}</Text>
+        <Text>FACEBOOK: {this.props.state.facebook ? JSON.stringify(this.props.state.facebook) : ""}</Text>
         <Button 
-          title="Salir" 
+          title="Salir" //
           onPress={(ev)=>{this.logout(this.props.state.token)}}
           style={styles.boton}
           loading={this.state.isLoading}

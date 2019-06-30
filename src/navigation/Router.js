@@ -1,24 +1,27 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
+//Pantallas externas ___________________________________________
 import PresentacionScreen from '../pantallas/externas/Portada'
 import OpcionesScreen from '../pantallas/externas/Opciones'
 import LoginScreen from '../pantallas/externas/Login'
 import HomeWrapper from '../pantallas/internas/HomeWrapper'
-import Register from '../pantallas/externas/Registro'
+import Registro from '../pantallas/externas/Registro'
 
-import RegisterDatosPersonales from '../pantallas/externas/RegistroDatosPersonales'
+
+//Pantallas internas ____________________________________________
+
+
+
 
 const AppNavigator = createStackNavigator({
   Presentacion: PresentacionScreen,
   Opciones: OpcionesScreen,
   Login: LoginScreen,
-  Register: Register,
-  HomeWrapper: HomeWrapper,
-
-  RegisterDatosPersonales, RegisterDatosPersonales
+  Registro: Registro,
+  HomeWrapper: HomeWrapper
 },
 {
-  initialRouteName: "HomeWrapper"
+  initialRouteName: "Registro"
 });
 
 const AppContainer = createAppContainer(AppNavigator);

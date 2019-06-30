@@ -22,9 +22,11 @@ const INITIAL_STATE = {
         actividad_fisica_meta:undefined,
         profile_picture:"",
         email: undefined,
-        password: undefined,
-        token:"", 
+        password: undefined,        
     },
+    token:"", 
+    google: undefined,
+    facebook: undefined,
     colores: {
         azulClaro: "#3CD1C9",
         azulOscuro: "#364F6B",

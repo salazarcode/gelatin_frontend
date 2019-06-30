@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Image, Platform } from 'react-native';
-import {Button,Checkbox} from 'react-native-paper'
+import { StyleSheet, Text, View, TextInput, Image, Platform, Alert, ScrollView, KeyboardAvoidingView } from 'react-native';
+import {Button} from 'react-native-paper'
 import { connect } from 'react-redux'
-import axios from 'axios'
-
+import {facebookInfo, googleInfo} from './servicios/rrssllogin'
 import BackButton from '../../componentes/BackButton'
 import FooterIniciarSesion from '../../componentes/FooterIniciarSesion'
+import axios from 'axios'
 
 function mapStateToProps(state){
   return {
@@ -13,7 +13,7 @@ function mapStateToProps(state){
   }
 }
 
-class Register extends React.Component 
+class RegistroScreen extends React.Component 
 {        
   static navigationOptions = {
       header: null
@@ -24,165 +24,177 @@ class Register extends React.Component
       correo: "",
       password: "",
       isLoading: false,
-      token: "",
-      checked1: false,
-      checked2: false
+      urlRegistro: "https://ivorystack.com/mainbk/public/api/users"
     };
-  }  
+    this.registro = this.registro.bind(this)
+    this.getFacebookInfo = this.getFacebookInfo.bind(this)
+    this.getGoogleInfo = this.getGoogleInfo.bind(this)
+  } 
+
+  async getFacebookInfo(){
+    let fbInfo = await facebookInfo();
+    await this.props.dispatch({
+      type: "SET_FACEBOOK",
+      payload: {
+        facebook: fbInfo
+      }
+    });  
+    this.setState({correo: this.props.state.facebook.email});   
+  }
+
+  async getGoogleInfo(){
+    let {user} = await googleInfo();
+    await this.props.dispatch({
+      type: "SET_GOOGLE",
+      payload: {
+        google: user
+      }
+    }); 
+    this.setState({correo: this.props.state.google.email});   
+  }
+
+  async registro(type){ 
+    if(this.state.password == "" || this.state.correo == "")
+    {
+      Alert.alert(
+        'Validación de registro',
+        'Debes ingresar una contraseña y un correo para registrarte',
+        [
+          {text: 'Cerrar', onPress: () => console.log('No introdujo la contraseña o el correo')},
+        ],
+        {cancelable: false},
+      );
+    }
+    let res = await axios.post(this.state.urlRegistro, {
+      email: this.state.correo,
+      password: this.state.password,
+      role_id: 1
+    });  
+
+    console.log(res.data); 
+  }
 
   render() {
     return (
-      <View style={{flex:1, alignItems:"center", justifyContent:"center", backgroundColor:this.props.state.colores.fondo}}> 
-        <BackButton goBack={this.props.navigation}/>
-        
-        <Image
-          style={{width: 50, height:50, marginTop:10, marginBottom:20}}
-          source={require('../../assets/img/logo.png')}
-        />
-
-        <View style={{width:"100%", marginTop:"2%", marginBottom:"2%", height:"auto", alignItems:"center", justifyContent:"center"}}>
-          <Text style={{fontFamily:"NunitoBold", fontSize:30}}>Crear una cuenta</Text>
-        </View>
-        
-        <View style={{width:"100%", marginTop:"2%", marginBottom:"2%", height:"auto", alignItems:"center", justifyContent:"center"}}>
-          <Text style={{fontFamily:"NunitoRegular", fontSize:12}}>O CREALA CON UUNA CUENTA DE CORREO</Text>
-        </View>
-
-        <View style={{
-          width:"100%", 
-          paddingLeft: "10%",
-          paddingRight: "10%",
-          marginTop: 10,
-          height:"auto", 
-          flexDirection: "row",
-          alignItems:"center", 
-          justifyContent:"space-between"
-        }}>
-          <Button  
-            mode="contained" 
-            contentStyle={{
-              height: 30,
-              width: 140
-            }} 
-            style={{
-              borderRadius:15,
-              elevation:7
-            }}
-            color="#3b5998"
-            onPress={() => {console.log("login con facebook")}}
-          >
-              <Text style={{fontFamily: "NunitoBold", fontSize:20, color:"white"}}>f</Text>
-          </Button>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+        <ScrollView contentContainerStyle={{flex:1, alignItems:"center", justifyContent:"center", backgroundColor:this.props.state.colores.fondo}}> 
+          <BackButton goBack={this.props.navigation}/>
           
+          <Image
+            style={{width: 50, height:50, marginTop:10, marginBottom:20}}
+            source={require('../../assets/img/logo.png')}
+          />
+
+          <View style={{width:"100%", marginTop:"2%", marginBottom:"2%", height:"auto", alignItems:"center", justifyContent:"center"}}>
+            <Text style={{fontFamily:"NunitoBold", fontSize:30}}>Crear una cuenta</Text>
+          </View>
+          
+          <View style={{width:"100%", marginTop:"2%", marginBottom:"2%", height:"auto", alignItems:"center", justifyContent:"center"}}>
+            <Text style={{fontFamily:"NunitoRegular", fontSize:12}}>CREAR UNA CUENTA CON FACEBOOK O GOOGLE</Text>
+          </View>
+
+          <View style={{  
+            width:"100%", 
+            paddingLeft: "10%",
+            paddingRight: "10%",
+            marginTop: 10,
+            height:"auto", 
+            flexDirection: "row",
+            alignItems:"center", 
+            justifyContent:"space-between"
+          }}>
+            <Button  
+              mode="contained" 
+              contentStyle={{
+                height: 30,
+                width: 140
+              }} 
+              style={{
+                borderRadius:15,
+                elevation:7
+              }}
+              color="#3b5998"
+              onPress={this.getFacebookInfo}
+            >
+                <Text style={{fontFamily: "NunitoBold", fontSize:20, color:"white"}}>f</Text>
+            </Button>
+            
+            <Button  
+              mode="contained" 
+              contentStyle={{
+                height: 30,
+                width: 140
+              }} 
+              style={{
+                borderRadius:15,
+                elevation:7
+              }}
+              color="#db4a39"
+              onPress={this.getGoogleInfo}
+            >
+              <Text style={{fontFamily: "NunitoBold", fontSize:20, color:"white"}}>G</Text>
+            </Button>
+          </View>
+
+          
+          <View style={{width:"100%", marginTop:"6%", marginBottom:"2.5%", height:"auto", alignItems:"center", justifyContent:"center"}}>
+            <Text style={{fontFamily:"NunitoRegular", fontSize:12}}>O CREA UNA CUENTA CON UN CORREO</Text>
+          </View>
+
+          <TextInput
+            style={{
+              height: 40, 
+              width: "100%",
+              marginLeft:"20%",
+              marginRight:"20%",
+              paddingLeft:10,
+              borderRadius:20,
+              backgroundColor:"white",
+              elevation:7,
+              fontFamily:"NunitoRegular",
+              fontSize: 12
+            }}
+            onChangeText={(text) => {this.setState({correo:text})}}
+            value={this.state.correo}
+          />
+
+          <TextInput
+            style={{
+              height: 45, 
+              width: "100%",
+              marginLeft:"20%",
+              marginRight:"20%",
+              marginTop:"3%",
+              paddingLeft:10,
+              borderRadius:22.5,
+              backgroundColor:"white",
+              elevation:7,
+              fontFamily:"NunitoRegular",
+              fontSize: 12
+            }}
+            onChangeText={(text) => {this.setState({password:text})}}
+            secureTextEntry={true}
+            placeholder="PASSWORD"
+          />
+
           <Button  
             mode="contained" 
             contentStyle={{
-              height: 30,
-              width: 140
+              height: 50,
+              width: 150
             }} 
             style={{
-              borderRadius:15,
+              borderRadius:25,
+              marginTop: 10,
               elevation:7
             }}
-            color="#db4a39"
-            onPress={() => {console.log("login con google")}}
+            color={this.props.state.colores.azulClaro}
+            onPress={this.registro}
           >
-            <Text style={{fontFamily: "NunitoBold", fontSize:20, color:"white"}}>G</Text>
-          </Button>
-        </View>
-
-        
-        <View style={{width:"100%", marginTop:"6%", marginBottom:"2.5%", height:"auto", alignItems:"center", justifyContent:"center"}}>
-          <Text style={{fontFamily:"NunitoRegular", fontSize:12}}>O CREA UNA CUENTA CON TU CORREO</Text>
-        </View>
-
-        <TextInput
-          style={{
-            height: 40, 
-            width: "100%",
-            marginLeft:"20%",
-            marginRight:"20%",
-            paddingLeft:10,
-            borderRadius:20,
-            backgroundColor:"white",
-            elevation:7,
-            fontFamily:"NunitoRegular",
-            fontSize: 12
-          }}
-          onChangeText={(text) => {this.setState({correo:text})}}
-          placeholder="CORREO"
-        />
-
-        <TextInput
-          style={{
-            height: 45, 
-            width: "100%",
-            marginLeft:"20%",
-            marginRight:"20%",
-            marginTop:"3%",
-            paddingLeft:10,
-            borderRadius:22.5,
-            backgroundColor:"white",
-            elevation:7,
-            fontFamily:"NunitoRegular",
-            fontSize: 12
-          }}
-          onChangeText={(text) => {this.setState({password:text})}}
-          secureTextEntry={true}
-          placeholder="PASSWORD"
-        />
-
-        <View style={{
-          width:"70%",
-          height:50,
-          flexDirection:"row",
-          alignItems:"center",
-          justifyContent:"center"
-        }}>
-          <Checkbox
-            status={this.state.checked1 ? 'checked' : 'unchecked'}
-            onPress={() => { this.setState({ checked1: !this.state.checked1 }); }}
-          />
-          <Text style={{fontFamily:"NunitoRegular", fontSize:10, flexWrap:"wrap"}}>
-            Me gustaría recibir ofertas especiales y noticias de GELATIN APP por correo electrónico.
-          </Text>
-        </View>
-
-        
-        <View style={{
-          width:"70%",
-          height:50,
-          flexDirection:"row",
-          alignItems:"center",
-          justifyContent:"center"
-        }}>
-          <Checkbox
-            status={this.state.checked2 ? 'checked' : 'unchecked'}
-            onPress={() => { this.setState({ checked2: !this.state.checked2 }); }}
-          />
-          <Text style={{fontFamily:"NunitoRegular", fontSize:10, flexWrap:"wrap"}}>
-            Estoy de acuerdo con los Términos y Condiciones y la política de privacidad de GELATIN APP.
-          </Text>
-        </View>
-
-        <Button  
-          mode="contained" 
-          contentStyle={{
-            height: 40,
-            width: 150
-          }} 
-          style={{
-            borderRadius:20,
-            marginTop: 10,
-            elevation:7
-          }}
-          color={this.props.state.colores.azulClaro}
-          onPress={() => this.props.navigation.navigate('Login')}
-        >
-            <Text style={{fontFamily: "NunitoBold", fontSize:14, color:"white"}}>Register</Text>
-        </Button>    
-        <FooterIniciarSesion navigator={this.props.navigation}/>    
-      </View>
+              <Text style={{fontFamily: "NunitoBold", fontSize:14, color:"white"}}>Crear cuenta</Text>
+          </Button>    
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -217,4 +229,4 @@ const styles = StyleSheet.create({
 
   });
 
-export default connect(mapStateToProps)(Register)
+export default connect(mapStateToProps)(RegistroScreen)

@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, Image, Platform } from 'react-native';
 import {Button} from 'react-native-paper'
 import { connect } from 'react-redux'
-import axios from 'axios'
-
+import {facebookInfo, googleInfo} from './servicios/rrssllogin'
 import BackButton from '../../componentes/BackButton'
 import FooterIniciarSesion from '../../componentes/FooterIniciarSesion'
+import axios from 'axios'
 
 function mapStateToProps(state){
   return {
@@ -24,16 +24,80 @@ class LoginScreen extends React.Component
       correo: "",
       password: "",
       isLoading: false,
-      token: ""
+      token: "",
+      pictureUri: undefined,
+      FacebookInfo: undefined,
+      GoogleInfo: undefined
     };
     this.login = this.login.bind(this)
+    this.FacebookLogin = this.FacebookLogin.bind(this);
+    this.GoogleLogin = this.GoogleLogin.bind(this);
   }  
-  async login(){
-      let correo = this.state.correo;
-      let password = this.state.password;
-    await this.setState({"isLoading": true});
+
+  async FacebookLogin() 
+  {
+    let fbInfo = facebookInfo();
+    await this.props.dispatch({
+      type: "SET_GOOGLE",
+      payload: {
+        facebook: fbInfo
+      }
+    });   
+
+    if(fbInfo != undefined)
+    {
+      let res = await axios.post("https://ivorystack.com/mainbk/public/api/" + 'login', {
+        correo: fbInfo.email,
+        facebook: 1
+      });      
+
+      if(res.data.success == 1)
+      {
+        await this.props.dispatch({
+          type: "SET_TOKEN",
+          payload: {
+            token: res.data.data.token
+          }
+        });
+        this.props.navigation.navigate("HomeWrapper");
+      }
+    }
+  }
+
+  async GoogleLogin() {
+    const {user} = googleInfo();
+    await this.props.dispatch({
+      type: "SET_GOOGLE", //
+      payload: {
+        google: user
+      }
+    });    
+
     let res = await axios.post("https://ivorystack.com/mainbk/public/api/" + 'login', {
-        email: correo,
+      correo: user.email,
+      gmail: 1
+    });           
+    
+    if(res.data.success == 1)
+    {
+      await this.props.dispatch({
+        type: "SET_TOKEN",
+        payload: {
+          token: res.data.data.token
+        }
+      });
+      
+      this.props.navigation.navigate("HomeWrapper");
+    }
+  }
+
+  async login(){
+    let correo = this.state.correo;
+    let password = this.state.password;
+    await this.setState({"isLoading": true});
+
+    let res = await axios.post("https://ivorystack.com/mainbk/public/api/" + 'login', {
+        correo: correo,
         password: password
     })
     .then(function (response) {
@@ -42,7 +106,9 @@ class LoginScreen extends React.Component
     .catch(function (error) {
         console.log(error);
     });    
+
     await this.setState({"isLoading": false});
+
     if(res.success == 1)
     {        
         await this.setState({
@@ -52,7 +118,7 @@ class LoginScreen extends React.Component
           type: "SET_TOKEN",
           payload: {token:res.token}
         });
-        this.props.navigation.navigate('HomeWrapper')
+        this.props.navigation.navigate('HomeWrapper')//
     }
     else
     {   
@@ -62,7 +128,7 @@ class LoginScreen extends React.Component
         });
     }
     
-    }
+  }
 
   render() {
     return (
@@ -103,7 +169,7 @@ class LoginScreen extends React.Component
               elevation:7
             }}
             color="#3b5998"
-            onPress={() => {console.log("login con facebook")}}
+            onPress={this.FacebookLogin}
           >
               <Text style={{fontFamily: "NunitoBold", fontSize:20, color:"white"}}>f</Text>
           </Button>
@@ -119,7 +185,7 @@ class LoginScreen extends React.Component
               elevation:7
             }}
             color="#db4a39"
-            onPress={() => {console.log("login con google")}}
+            onPress={this.GoogleLogin}
           >
             <Text style={{fontFamily: "NunitoBold", fontSize:20, color:"white"}}>G</Text>
           </Button>
