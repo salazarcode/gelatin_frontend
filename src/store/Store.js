@@ -32,7 +32,9 @@ const INITIAL_STATE = {
         azulOscuro: "#364F6B",
         rosa: "#FC5185",
         fondo: "#F5F5F5"
-    }
+    },
+    currentChat: undefined,
+    currentMessages: undefined
 
 }
 

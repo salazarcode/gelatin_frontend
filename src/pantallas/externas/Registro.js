@@ -78,13 +78,11 @@ class RegistroScreen extends React.Component
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <ScrollView contentContainerStyle={{flex:1, alignItems:"center", justifyContent:"center", backgroundColor:this.props.state.colores.fondo}}> 
-          <BackButton goBack={this.props.navigation}/>
-          
+          <BackButton goBack={this.props.navigation}/>          
           <Image
             style={{width: 50, height:50, marginTop:10, marginBottom:20}}
             source={require('../../assets/img/logo.png')}
           />
-
           <View style={{width:"100%", marginTop:"2%", marginBottom:"2%", height:"auto", alignItems:"center", justifyContent:"center"}}>
             <Text style={{fontFamily:"NunitoBold", fontSize:30}}>Crear una cuenta</Text>
           </View>

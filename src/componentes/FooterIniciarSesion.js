@@ -21,19 +21,14 @@ class FooterIniciarSesion extends React.Component
       }}>
         <Image
         style={{
-          height:100,
-          width:"100%",
-          backgroundColor:"transparent"
         }}
         source={require('../assets/img/curva-login.png')} />
         <TouchableOpacity
           style={{
             position:"absolute",
-            height:"100%",
-            width:"100%",
-            alignItems:"center",
-            justifyContent:"center"
-          }} 
+            bottom:0,
+            zIndex:6,
+          }}
           onPress={()=>{this.props.navigator.navigate("Login")}}>
           <Text style={{fontFamily:"NunitoRegular"}}>¿Ya tienes una cuenta?</Text>
           <Text style={{fontFamily:"NunitoRegular", fontSize:15, color:this.props.state.colores.rosa}}>INICIAR SESIÓN</Text>
