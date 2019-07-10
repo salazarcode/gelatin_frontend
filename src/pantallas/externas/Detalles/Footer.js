@@ -17,13 +17,14 @@ class Footer extends React.Component
     /*  
     */ 
     return (
-      <View style={{flex:1, justifyContent: 'flex-end'}}>
+      <View style={{height:100, width:"100%", justifyContent: 'flex-end', backgroundColor:"transparent"}}>
         <Image
         style={{
           position:"absolute",
           width:"100%",    
           height:"100%",
-          resizeMode:"stretch"
+          resizeMode:"stretch",
+          backgroundColor:"transparent"
         }}
         source={require('../../../assets/img/curva-login.png')} />        
         <TouchableOpacity
@@ -35,7 +36,7 @@ class Footer extends React.Component
             justifyContent:"center",
             backgroundColor:"transparent"
           }} 
-          onPress={()=>{this.props.navigator.navigate("Login")}}>
+          onPress={()=>{console.log("goLogin")}}>
           <Text style={{fontFamily:"NunitoRegular"}}>¿Ya tienes una cuenta?</Text>
           <Text style={{fontFamily:"NunitoRegular", fontSize:15, color:this.props.state.colores.rosa}}>INICIAR SESIÓN</Text>
         </TouchableOpacity>

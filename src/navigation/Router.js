@@ -7,8 +7,8 @@ import Login  from '../pantallas/externas/Login'
 import Registro from '../pantallas/externas/Registro'
 
 import DatosPersonales from "../pantallas/externas/Detalles/DatosPersonales";
-/*import CualEsTuObjetivo from "../pantallas/externas/Detalles/CualEsTuObjetivo";
-import Peso from "../pantallas/externas/Detalles/Peso";
+import CualEsTuObjetivo from "../pantallas/externas/Detalles/CualEsTuObjetivo";
+/*import Peso from "../pantallas/externas/Detalles/Peso";
 import Actividad from "../pantallas/externas/Detalles/Actividad";*/
 
 
@@ -29,8 +29,8 @@ const AppNavigator = createStackNavigator({
   Registro: Registro,  
 
   DatosPersonales: DatosPersonales,
-  /*CualEsTuObjetivo: CualEsTuObjetivo,
-  Peso: Peso,
+  CualEsTuObjetivo: CualEsTuObjetivo,
+  /*Peso: Peso,
   Actividad:Actividad,*/
 
   //Pantallas internas
@@ -41,7 +41,8 @@ const AppNavigator = createStackNavigator({
   Mensajes: Mensajes
 },
 {
-  initialRouteName: "DatosPersonales"
+  initialRouteName: "CualEsTuObjetivo"
+  //initialRouteName: "DatosPersonales"
 });
 
 const AppContainer = createAppContainer(AppNavigator);

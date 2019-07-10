@@ -5,12 +5,16 @@ class BackButton extends React.Component
 {    
   render() {
     return (
-      <TouchableOpacity style={{
-            top: Platform.OS === 'android' ? 29 : 0,
-            position: "absolute",
-            left: 5,
-            elevation:7      
-      }} onPress={()=>this.props.goBack.goBack()}>
+      <TouchableOpacity 
+        style={{
+          marginTop:5,
+          marginLeft: 5,
+          position: "absolute",
+          elevation:7,
+          zIndex:99
+        }} 
+        onPress={()=>console.log(this.props.nav.goBack())}
+      >
         <Image
           source={require("../assets/img/atras.png")}
           style={{

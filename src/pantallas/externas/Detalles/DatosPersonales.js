@@ -13,6 +13,7 @@ import {Button} from 'react-native-paper'
 import Wrapper from './Wrapper'
 import { connect } from 'react-redux'
 import BackButton from '../../../componentes/BackButton'
+import Footer from './Footer'
 
 function mapStateToProps(state){
   return {
@@ -72,8 +73,7 @@ class DatosPersonales extends React.Component
                 style={{
                   height:20,
                   width:40,
-                  borderTopLeftRadius:10,
-                  borderBottomLeftRadius:10,
+                  borderRadius:10,
                   marginLeft:5,                  
                   backgroundColor:this.state.sexo == "HOMBRE" ? this.props.state.colores.azulClaro : "silver"
                 }}
@@ -84,8 +84,8 @@ class DatosPersonales extends React.Component
                 style={{
                   height:20,
                   width:40,
-                  borderTopRightRadius:10,
-                  borderBottomRightRadius:10,
+                  borderRadius:10,
+                  marginLeft:3,
                   marginRight:5,               
                   backgroundColor:this.state.sexo == "MUJER" ? this.props.state.colores.azulClaro : "silver"
                 }}
@@ -193,8 +193,9 @@ class DatosPersonales extends React.Component
             </View>
           </View>
 
-          <TouchableOpacity style={{
-            height:40,
+          <TouchableOpacity 
+          style={{
+            height:50,
             width:"40%",
             backgroundColor:this.props.state.colores.azulClaro,
             alignSelf: 'center',
@@ -202,14 +203,17 @@ class DatosPersonales extends React.Component
             justifyContent:"center",
             marginTop:10, 
             marginBottom: 30,
-            borderRadius:20
-          }}>
+            borderRadius:25
+          }}
+          onPress={()=>{
+            this.props.navigation.navigate("CualEsTuObjetivo");
+          }}
+          >
             <Text style={{fontFamily:"NunitoBold", fontSize:20, color:"white"}}>Siguiente</Text>
           </TouchableOpacity>
-
-
-
-          </ScrollView>          
+   
+          <Footer />    
+          </ScrollView>   
         </Wrapper>        
       );
     }
