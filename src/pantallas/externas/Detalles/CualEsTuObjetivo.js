@@ -32,8 +32,7 @@ class CualEsTuObjetivo extends React.Component
         {id:1, texto: "BAJAR DE PESO", active:false},
         {id:2, texto: "CORRER UN MARATÓN", active:false},
         {id:3, texto: "NORMALIZAR DIÁBETES", active:false},
-      ]
-      
+      ]      
     }
     static navigationOptions = {
         header: null
