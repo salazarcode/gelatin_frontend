@@ -206,7 +206,7 @@ class DatosPersonales extends React.Component
             borderRadius:25
           }}
           onPress={()=>{
-            this.props.navigation.navigate("CualEsTuObjetivo");
+            this.props.navigation.navigate("Peso");
           }}
           >
             <Text style={{fontFamily:"NunitoBold", fontSize:20, color:"white"}}>Siguiente</Text>

@@ -24,6 +24,14 @@ function MainReducer(state = {}, action){
             state.google = action.payload.google;
             return state
 
+        case "SET_INITIALS":
+            state.initials = action.payload.initials;
+            return state        
+
+        case "SET_REGISTER":
+            state.registro = action.payload.registro;
+            return state;
+
         default:
           return state
       }

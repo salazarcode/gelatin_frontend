@@ -30,6 +30,7 @@ class Dashboard extends React.Component
 {    
   render() {
     return (
+      <Wrapper>
         <ScrollView 
           style={{ 
             flexDirection: "column", 
@@ -37,68 +38,66 @@ class Dashboard extends React.Component
             marginTop:24
           }} 
           stickyHeaderIndices={[0]}
-        >
+        >            
+          <MainHeader/>
+
+          <View style={{flex:1, zIndex:1}}>
+            <Card width="60%" height="2.5%" padding={20} alignItems="center" justifyContent="center">
+              <Text style={{color:"#3FC1C9", fontSize:14,  fontFamily:"NunitoBold",}}>300 Calorias Quemadas</Text>
+            </Card>
             
-            <MainHeader/>
-
-            <View style={{flex:1, zIndex:1}}>
-              <Card width="60%" height="2.5%" padding={20} alignItems="center" justifyContent="center">
-                <Text style={{color:"#3FC1C9", fontSize:14,  fontFamily:"NunitoBold",}}>300 Calorias Quemadas</Text>
+            <View style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: "space-between",
+              marginLeft: "5%",
+              marginRight: "5%",
+            }}>            
+              <Card 
+                width="50%" 
+                height={40} 
+                backgroundColor="#3FC1C9"  
+                paddingLeft={20} 
+                paddingRight={20} 
+                paddingBottom={20} 
+                paddingTop={20} 
+                alignItems="center" 
+                justifyContent="center"
+              >
+                <Text style={{color:"white", fontSize:12,  fontFamily:"NunitoBold"}}>ACTUALIZAR PESO</Text>
               </Card>
-              
-              <View style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: "space-between",
-                marginLeft: "5%",
-                marginRight: "5%",
-              }}>            
-                <Card 
-                  width="50%" 
-                  height={40} 
-                  backgroundColor="#3FC1C9"  
-                  paddingLeft={20} 
-                  paddingRight={20} 
-                  paddingBottom={20} 
-                  paddingTop={20} 
-                  alignItems="center" 
-                  justifyContent="center"
-                >
-                  <Text style={{color:"white", fontSize:12,  fontFamily:"NunitoBold"}}>ACTUALIZAR PESO</Text>
-                </Card>
-                <Card 
-                  width={40} 
-                  height={40} 
-                  backgroundColor="#3FC1C9"   
-                  paddingLeft={20} 
-                  paddingRight={20} 
-                  paddingBottom={20} 
-                  paddingTop={20} 
-                  borderRadius={30} 
-                  alignItems="center" 
-                  justifyContent="center"
-                >
-                  <IconButton
-                          icon="notifications-active"
-                          color="white"
-                          size={20}
-                          onPress={() => console.log('Pressed')}
-                        /> 
-                </Card> 
-              </View>   
-          
-              <Fecha />
-              <Sugerencias/>  
-              <AlarmaPrincipal/>                
-              <Comidas/>    
-              <Agua/>     
-              <DatosCardiovasculares/>  
-              <Actividades/>       
-            </View>
+              <Card 
+                width={40} 
+                height={40} 
+                backgroundColor="#3FC1C9"   
+                paddingLeft={20} 
+                paddingRight={20} 
+                paddingBottom={20} 
+                paddingTop={20} 
+                borderRadius={30} 
+                alignItems="center" 
+                justifyContent="center"
+              >
+                <IconButton
+                        icon="notifications-active"
+                        color="white"
+                        size={20}
+                        onPress={() => console.log('Pressed')}
+                      /> 
+              </Card> 
+            </View>   
+        
+            <Fecha />
+            <Sugerencias/>  
+            <AlarmaPrincipal/>                
+            <Comidas/>    
+            <Agua/>     
+            <DatosCardiovasculares/>  
+            <Actividades/>       
+          </View>
+        </ScrollView>        
+      </Wrapper>
 
-
-
-        </ScrollView>
     );
   }
 }

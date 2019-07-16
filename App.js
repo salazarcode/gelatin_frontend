@@ -17,7 +17,7 @@ export default class App extends React.Component {
       'NunitoRegular': require('./src/assets/fonts/Nunito-Regular.ttf'),
     });
 
-    this.setState({ fontLoaded: true });
+    this.setState({fontLoaded:true});
   }
   render() {
     if(this.state.fontLoaded)

@@ -7,8 +7,8 @@ class BackButton extends React.Component
     return (
       <TouchableOpacity 
         style={{
-          marginTop:5,
-          marginLeft: 5,
+          top:5,
+          left: 5,
           position: "absolute",
           elevation:7,
           zIndex:99

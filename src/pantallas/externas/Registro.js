@@ -31,6 +31,23 @@ class RegistroScreen extends React.Component
     this.getGoogleInfo = this.getGoogleInfo.bind(this)
   } 
 
+  componentDidMount = async () => {    
+    let objetivos = await axios.get('https://www.ivorystack.com/mainbk/api/objectives').then(res=>res.data);
+    let niveles = await axios.get('https://www.ivorystack.com/mainbk/api/levels').then(res=>res.data);
+    let habitos = await axios.get('https://www.ivorystack.com/mainbk/api/habits').then(res=>res.data);
+
+    this.props.dispatch({
+      type: "SET_INITIALS",
+      payload: {
+        initials: {
+          objetivos: objetivos,
+          niveles: niveles,
+          habitos: habitos
+        }
+      }
+    });
+  }
+
   async getFacebookInfo(){
     let fbInfo = await facebookInfo();
     await this.props.dispatch({

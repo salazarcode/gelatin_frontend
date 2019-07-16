@@ -138,7 +138,7 @@ class Peso extends React.Component
                     height: 40, 
                     width: "100%",
                     margin:5,
-                    fontFamily:"NunitoRegular"
+                    fontFamily:"NunitoRegular",
                   }}
                   onValueChange={(itemValue, itemIndex) =>
                     this.setState({peso: itemValue})
@@ -161,7 +161,7 @@ class Peso extends React.Component
               borderRadius:25
             }}
             onPress={()=>{
-              this.props.navigation.navigate("Peso");
+              this.props.navigation.navigate("Dashboard");
             }}
           >
             <Text style={{fontFamily:"NunitoBold", fontSize:20, color:"white"}}>Siguiente</Text>
