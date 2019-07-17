@@ -1,30 +1,43 @@
 import { createStore } from 'redux'
-import Reducer from './reducers/MainReducer'
+import Reducer from './Reducer'
 
 const INITIAL_STATE = {
     estaFuera: false,
+    env: "DEV",
+    prod: "http://www.ivorystack.com/mainbk/api",
+    dev: "http://www.ivorystack.com/mainbk/public/api",
     autenticacion: {
         pool_id:1,
         role_id:3, //premium por ahora
         registro: {
+            //DATOS PERSONALES          
+            profile_picture:"",  
+            sexo: "",
             nombre: "",
             ubicacion: "",
             edad: undefined,
             estatura: undefined,
+
+            //CUAL ES TU OBJETIVO
+            objetivos: [],
+
+            //PESO
             peso : undefined,
             cintura: undefined,
             peso_ideal: undefined,
-            intensidad_programa:undefined,
+
+            //ACTIVIDAD
             actividad_fisica_actual:undefined,
             actividad_fisica_meta:undefined,
-            profile_picture:"",            
-            sexo: "",
-            objetivos: [],
             habitos: []
         },
         email: undefined,
         password: undefined,      
-        initials: undefined,
+        initials: {
+            objetivos:[],
+            habitos: [],
+            niveles: []
+        },
     },
     token:"", 
     google: undefined,

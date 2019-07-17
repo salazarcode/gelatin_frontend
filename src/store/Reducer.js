@@ -1,4 +1,4 @@
-function MainReducer(state = {}, action){
+let Reducer = (state = {}, action) => {
     switch (action.type) {
         case "SET_TOKEN":
             state.token = action.payload.token;
@@ -25,16 +25,16 @@ function MainReducer(state = {}, action){
             return state
 
         case "SET_INITIALS":
-            state.initials = action.payload.initials;
-            return state        
+            state.autenticacion.initials[action.payload.variable] = action.payload.valor;
+            return {...state};
 
         case "SET_REGISTER":
-            state.registro = action.payload.registro;
-            return state;
+            state.autenticacion.registro[action.payload.variable] = action.payload.valor;
+            return {...state};
 
         default:
           return state
       }
 }
 
-export default MainReducer;
+export default Reducer;

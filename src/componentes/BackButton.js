@@ -13,7 +13,7 @@ class BackButton extends React.Component
           elevation:7,
           zIndex:99
         }} 
-        onPress={()=>console.log(this.props.nav.goBack())}
+        onPress={()=>this.props.nav.goBack()}
       >
         <Image
           source={require("../assets/img/atras.png")}

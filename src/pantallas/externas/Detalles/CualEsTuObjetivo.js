@@ -10,20 +10,26 @@ import {
   Image
 } from 'react-native';
 
-import {
-  Button
-} from 'react-native-paper' 
 
 import Wrapper from './Wrapper'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import BackButton from '../../../componentes/BackButton'
 import Footer from './Footer'
+import Actions from "../../../store/Actions";
 
 function mapStateToProps(state){
   return {
-    state: state
+    objetivos: state.objetivos,
+    colores: state.colores
   }
+}
+
+function mapDispatchToProps(dispatch)
+{
+  return {
+    setInitials: (tipo, array) => dispatch(Actions.setRegistro(tipo, array)),
+  };
 }
 
 class CualEsTuObjetivo extends React.Component 
@@ -40,27 +46,16 @@ class CualEsTuObjetivo extends React.Component
       super(props);
       this._PickSeleccionado.bind(this);
     }
-    componentDidMount = async () => {    
-      let objetivos = await axios.get('https://www.ivorystack.com/mainbk/api/objectives').then(res=>res.data);
-      let niveles = await axios.get('https://www.ivorystack.com/mainbk/api/levels').then(res=>res.data);
-      let habitos = await axios.get('https://www.ivorystack.com/mainbk/api/habits').then(res=>res.data);
-
-      objetivos = objetivos.map(item => {
-        item.active = false;
-        return item;
-      })
-
-      this.props.dispatch({
-        type: "SET_INITIALS",
-        payload: {
-          initials: {
-            objetivos: objetivos,
-            niveles: niveles,
-            habitos: habitos
-          }
-        }
-      });
-      this.setState({objetivos:this.props.state.initials.objetivos});
+    componentDidMount = async () => {   
+      let {env, prod, dev} = this.props.state;
+      let base = env == "PROD" ? prod : dev;
+  
+      axios.get(base + '/objectives')
+        .then(res=>res.data)
+        .then(res=>{
+          this.props.setInitials("objetivos", res);
+          this.setState({"objetivos": res})
+        })
     }
 
     _PickSeleccionado = async (id) => {
@@ -131,7 +126,7 @@ class CualEsTuObjetivo extends React.Component
                 style={{
                   height:50,
                   width:"40%",
-                  backgroundColor:this.props.state.colores.azulClaro,
+                  backgroundColor:this.props.colores.azulClaro,
                   alignSelf: 'center',
                   alignItems: 'center',
                   justifyContent:"center",
@@ -140,16 +135,9 @@ class CualEsTuObjetivo extends React.Component
                   borderRadius:25
                 }}
                 onPress={()=>{
-                  let registro = this.props.state.registro;
-                  registro.objetivos = this.state.seleccionados;
-                  this.props.dispatch({
-                    type:"SET_REGISTER",
-                    payload: {
-                      registro: registro
-                    }                  
-                  });
-                  console.log(this.props.state.registro);
-                  this.props.navigation.navigate("DatosPersonales");
+                  this.props.setRegistro("objetivos", this.state.seleccionados);
+                  console.log(this.props.objetivos);
+                  //this.props.navigation.navigate("Peso");
                 }}
               >
                 <Text style={{fontFamily:"NunitoBold", fontSize:20, color:"white"}}>Siguiente</Text>
@@ -164,4 +152,4 @@ class CualEsTuObjetivo extends React.Component
     }
   }
 
-export default connect(mapStateToProps)(CualEsTuObjetivo)
+export default connect(mapStateToProps, mapDispatchToProps)(CualEsTuObjetivo)

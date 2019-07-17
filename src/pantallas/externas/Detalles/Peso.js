@@ -18,6 +18,7 @@ import Wrapper from './Wrapper'
 import { connect } from 'react-redux'
 import BackButton from '../../../componentes/BackButton'
 import Footer from './Footer'
+import Actions from '../../../store/Actions'
 
 function mapStateToProps(state){
   return {
@@ -103,7 +104,7 @@ class Peso extends React.Component
                     fontFamily:"NunitoRegular",
                   }}
                   onValueChange={(itemValue, itemIndex) =>
-                    this.setState({peso: itemValue})
+                    this.setState({peso_actual: itemValue})
                   }>
                     {pesos}
                 </Picker>              
@@ -141,7 +142,7 @@ class Peso extends React.Component
                     fontFamily:"NunitoRegular",
                   }}
                   onValueChange={(itemValue, itemIndex) =>
-                    this.setState({peso: itemValue})
+                    this.setState({peso_ideal: itemValue})
                   }>
                     {pesos}
                 </Picker>              
@@ -161,7 +162,13 @@ class Peso extends React.Component
               borderRadius:25
             }}
             onPress={()=>{
-              this.props.navigation.navigate("Dashboard");
+              let {registro} = this.props.state.autenticacion;
+              registro.peso_actual = this.state.peso_actual;
+              registro.cintura = this.state.cintura;
+              registro.peso_ideal = this.state.peso_ideal;
+  
+              this.props.dispatch(Actions.setRegistro(registro));
+              this.props.navigation.navigate("Actividad");
             }}
           >
             <Text style={{fontFamily:"NunitoBold", fontSize:20, color:"white"}}>Siguiente</Text>

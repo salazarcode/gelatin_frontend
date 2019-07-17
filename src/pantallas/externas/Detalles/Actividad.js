@@ -18,6 +18,8 @@ import Wrapper from './Wrapper'
 import { connect } from 'react-redux'
 import BackButton from '../../../componentes/BackButton'
 import Footer from './Footer'
+import axios from 'axios'
+import Actions from '../../../store/Actions'
 
 function mapStateToProps(state){
   return {
@@ -28,20 +30,35 @@ function mapStateToProps(state){
 class Actividad extends React.Component 
 {    
     state = {     
-      niveles: [
-        "Bajo",
-        "Moderado",
-        "Intenso",
-        "Muy intenso"
-      ],
-      habitos: [
-        {id:1, titulo:"Correr todas las mañanas", active:false},
-        {id:2, titulo:"Trotar en la mañana", active:false},
-        {id:3, titulo:"No tomar desayuno", active:false},
-      ]
+      niveles: [],
+      habitos: [],
+      actividad_fisica_actual: "",
+      actividad_fisica_meta: "",
+      habitos_seleccionados: []
     }
+    componentDidMount = async () => {    
+      let {env, prod, dev} = this.props.state;
+      let base = env == "PROD" ? prod : dev;
+      let habitos = await axios.get(base + '/habits').then(res=>res.data);
+      let niveles = await axios.get(base + '/levels').then(res=>res.data);
+      this.setState({habitos:habitos, niveles:niveles});
+    }
+
     static navigationOptions = {
         header: null
+    }
+
+    _PickSeleccionado = async (id) => {
+      let {habitos, habitos_seleccionados} = this.state;
+      
+      let clicked = habitos.find(elem=>elem.id == id);
+      
+      let existeYa = habitos_seleccionados.find(elem=>elem.id == id);
+
+      if(existeYa != undefined)
+        await this.setState({habitos_seleccionados: habitos_seleccionados.filter(n=>n.id != id)});
+      else
+        await this.setState({habitos_seleccionados: [...habitos_seleccionados, clicked]}); 
     }
 
     render() {  
@@ -90,19 +107,17 @@ class Actividad extends React.Component
               <Text style={sentences}>ESTADO DE ACTIVIDAD FÍSICA ACTUAL</Text>
               <View style={pickWrapper}>
                 <Picker
-                  selectedValue={this.state.actividad_fisica_actual}
                   type="dialog"
                   style={{
                     height: 40, 
                     width: "100%",
-                    margin:5,
-                    fontFamily:"NunitoRegular",
+                    margin:5
                   }}
                   onValueChange={(itemValue, itemIndex) =>
                     this.setState({actividad_fisica_actual: itemValue})
                   }>
                     {this.state.niveles.map((item)=>(
-                      <Picker.Item key={item.toString()} label={item.toString()} value={item.toString()} />
+                      <Picker.Item key={item.id.toString()} label={item.titulo.toString()} value={item.id} />
                     ))}
                 </Picker>              
               </View> 
@@ -123,57 +138,47 @@ class Actividad extends React.Component
               <Text style={sentences}>ESTADO DE ACTIVIDAD FÍSICA META</Text>
               <View style={pickWrapper}>
                 <Picker
-                  selectedValue={this.state.actividad_fisica_meta}
                   type="dialog"
                   style={{
                     height: 40, 
                     width: "100%",
-                    margin:5,
-                    fontFamily:"NunitoRegular",
+                    margin:5
                   }}
                   onValueChange={(itemValue, itemIndex) =>
                     this.setState({actividad_fisica_meta: itemValue})
                   }>
                     {this.state.niveles.map((item)=>(
-                      <Picker.Item key={item.toString()} label={item.toString()} value={item.toString()} />
+                      <Picker.Item key={item.id.toString()} label={item.titulo.toString()} value={item.id} />
                     ))}
                 </Picker>              
               </View> 
             </View>
 
-            
-
-            <View
-            style={{
-              width:"80%",
-              height:40,
-              marginTop:20,
-              marginBottom:15,
-              flexDirection: 'column',
-              alignItems: 'center',
-              alignSelf: 'center',
-              justifyContent: 'center',
-            }}>
-              <Text style={sentences}>HÁBITOS</Text>
-              <View style={pickWrapper}>
-                <Picker
-                  selectedValue={this.state.habitos}
-                  type="dialog"
-                  style={{
-                    height: 40, 
-                    width: "100%",
-                    margin:5,
-                    fontFamily:"NunitoRegular",
-                  }}
-                  onValueChange={(itemValue, itemIndex) =>
-                    this.setState({habitos: itemValue})
-                  }>
-                    {this.state.habitos.map((item)=>(
-                      <Picker.Item key={item.id.toString()} label={item.titulo} value={item.id.toString()} />
-                    ))}
-                </Picker>              
-              </View> 
-            </View>
+            <Text style={[sentences, {alignSelf: 'center',}]}>HÁBITOS</Text>
+            {this.state.habitos.map((item)=>{
+                return (
+                  <TouchableOpacity
+                    style={{
+                      height:40,
+                      width:"60%",
+                      backgroundColor:this.state.habitos_seleccionados.find(n=>n.id == item.id) != undefined ? "navy" : "white",
+                      elevation:4,
+                      borderRadius:20,
+                      alignSelf: 'center',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      margin:5
+                    }}
+                    key={item.id.toString()}
+                    onPress={()=>this._PickSeleccionado(item.id)}
+                  >
+                    <Text style={{
+                      color:this.state.habitos_seleccionados.find(n=>n.id == item.id) != undefined ? "white" : "black",
+                      fontFamily:"NunitoRegular"
+                    }}>{item.titulo}</Text>
+                  </TouchableOpacity>
+                )
+              })}
 
           <TouchableOpacity 
             style={{
@@ -188,7 +193,14 @@ class Actividad extends React.Component
               borderRadius:25
             }}
             onPress={()=>{
-              this.props.navigation.navigate("CualEsTuObjetivo");
+              let {actividad_fisica_actual, actividad_fisica_meta, habitos_seleccionados} = this.state;
+              let registro = this.props.state.autenticacion.registro;
+              registro.actividad_fisica_actual = actividad_fisica_actual;
+              registro.actividad_fisica_meta = actividad_fisica_meta;
+              registro.habitos = habitos_seleccionados;
+              this.props.dispatch(Actions.setRegistro(registro));
+              console.log(this.props.state.autenticacion.registro)
+              //this.props.navigation.navigate("CualEsTuObjetivo");
             }}
           >
             <Text style={{fontFamily:"NunitoBold", fontSize:20, color:"white"}}>Listo</Text>

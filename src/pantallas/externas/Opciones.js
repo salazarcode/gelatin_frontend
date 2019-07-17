@@ -58,7 +58,7 @@ class OpcionesScreen extends React.Component
                 elevation:7,
               }}
               color={this.props.state.colores.azulClaro}
-              onPress={() => this.props.navigation.navigate('Register')}
+              onPress={() => this.props.navigation.navigate('Registro')}
             >
                 <Text style={{fontFamily: "NunitoRegular", fontSize:14, color:"white"}}>REGÍSTRATE</Text>
             </Button>

@@ -3,11 +3,19 @@ import { StyleSheet, Text, View, Image, ImageBackground, ScrollView, TouchableOp
 import { Button } from 'react-native-paper'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import Actions from "../../store/Actions";
 
 function mapStateToProps(state){
   return {
     state: state
   }
+}
+
+function mapDispatchToProps(dispatch)
+{
+  return {
+    setInitials: (variable, valor) => dispatch(Actions.setInitials(variable, valor)),
+  };
 }
 
 class PresentacionScreen extends React.Component 
@@ -17,6 +25,22 @@ class PresentacionScreen extends React.Component
   }
   static navigationOptions = {
       header: null
+  }
+  componentDidMount(){    
+    let {env, prod, dev} = this.props.state;
+    let base = env == "PROD" ? prod : dev;
+
+    axios.get(base + '/objectives')
+      .then(res=>res.data)
+      .then(res=>this.props.setInitials("objetivos", res));
+
+    axios.get(base + '/habits')
+      .then(res=>res.data)
+      .then(res=>this.props.setInitials("habitos", res.data))
+
+    axios.get(base + '/levels')
+      .then(res=>res.data)
+      .then(res=>this.props.setInitials("niveles", res.data))
   }
   render() {
 
@@ -56,4 +80,4 @@ class PresentacionScreen extends React.Component
   }
 }
 
-export default connect(mapStateToProps)(PresentacionScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(PresentacionScreen)
