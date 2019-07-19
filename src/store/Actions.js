@@ -16,5 +16,13 @@ module.exports = {
                valor: valor
            }
        } 
+    },
+    setAuthenticated(authenticated){
+       return {
+           type: "SET_USER",
+           payload: {
+            authenticated: authenticated
+           }
+       } 
     }
 }

@@ -30,7 +30,12 @@ let Reducer = (state = {}, action) => {
 
         case "SET_REGISTER":
             state.autenticacion.registro[action.payload.variable] = action.payload.valor;
-            return {...state};
+            return {...state};            
+
+        case "SET_USER":
+                state.autenticacion.authenticated = action.payload.authenticated;
+                state.autenticacion.registro.user_id = action.payload.authenticated.user.id;
+                return {...state};
 
         default:
           return state

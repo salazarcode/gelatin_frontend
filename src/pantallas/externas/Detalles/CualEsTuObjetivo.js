@@ -21,14 +21,15 @@ import Actions from "../../../store/Actions";
 function mapStateToProps(state){
   return {
     objetivos: state.objetivos,
-    colores: state.colores
+    colores: state.colores,
+    state:state
   }
 }
 
 function mapDispatchToProps(dispatch)
 {
   return {
-    setInitials: (tipo, array) => dispatch(Actions.setRegistro(tipo, array)),
+    setRegistro: (variable, valor) => dispatch(Actions.setRegistro(variable, valor)),
   };
 }
 
@@ -49,13 +50,8 @@ class CualEsTuObjetivo extends React.Component
     componentDidMount = async () => {   
       let {env, prod, dev} = this.props.state;
       let base = env == "PROD" ? prod : dev;
-  
-      axios.get(base + '/objectives')
-        .then(res=>res.data)
-        .then(res=>{
-          this.props.setInitials("objetivos", res);
-          this.setState({"objetivos": res})
-        })
+      let objetivos = await axios.get(base + '/objectives').then(res=>res.data);
+      this.setState({objetivos:objetivos});
     }
 
     _PickSeleccionado = async (id) => {
@@ -136,8 +132,7 @@ class CualEsTuObjetivo extends React.Component
                 }}
                 onPress={()=>{
                   this.props.setRegistro("objetivos", this.state.seleccionados);
-                  console.log(this.props.objetivos);
-                  //this.props.navigation.navigate("Peso");
+                  this.props.navigation.navigate("Peso");
                 }}
               >
                 <Text style={{fontFamily:"NunitoBold", fontSize:20, color:"white"}}>Siguiente</Text>

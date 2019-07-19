@@ -26,6 +26,12 @@ function mapStateToProps(state){
   }
 }
 
+function mapDispatchToProps (dispatch)
+{
+    return {
+      setRegistro: (variable, valor) => dispatch(Actions.setRegistro(variable, valor)),
+    };
+}
 class Peso extends React.Component 
 {    
     state = {
@@ -96,7 +102,7 @@ class Peso extends React.Component
             <Text style={sentences}>¿CUAL ES TU PESO ACTUAL? [Kgs.]</Text>
             <View style={pickWrapper}>
                 <Picker
-                  selectedValue={this.state.peso}
+                  selectedValue={this.state.peso_actual}
                   style={{
                     height: 40, 
                     width: "100%",
@@ -134,7 +140,7 @@ class Peso extends React.Component
             <Text style={sentences}>¿CUAL ES TU PESO IDEAL? [Kgs.]</Text>
             <View style={pickWrapper}>
                 <Picker
-                  selectedValue={this.state.peso}
+                  selectedValue={this.state.peso_ideal}
                   style={{
                     height: 40, 
                     width: "100%",
@@ -162,12 +168,9 @@ class Peso extends React.Component
               borderRadius:25
             }}
             onPress={()=>{
-              let {registro} = this.props.state.autenticacion;
-              registro.peso_actual = this.state.peso_actual;
-              registro.cintura = this.state.cintura;
-              registro.peso_ideal = this.state.peso_ideal;
-  
-              this.props.dispatch(Actions.setRegistro(registro));
+              this.props.setRegistro("peso_actual", this.state.peso_actual)
+              this.props.setRegistro("cintura", this.state.cintura)              
+              this.props.setRegistro("peso_ideal", this.state.peso_ideal)
               this.props.navigation.navigate("Actividad");
             }}
           >
@@ -181,4 +184,4 @@ class Peso extends React.Component
     }
   }
 
-export default connect(mapStateToProps)(Peso)
+export default connect(mapStateToProps, mapDispatchToProps)(Peso)

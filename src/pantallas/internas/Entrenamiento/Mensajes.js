@@ -21,10 +21,23 @@ function mapStateToProps(state){
   }
 }
 
+function mapDispatchToProps(dispatch)
+{
+  return {
+    
+  };
+}
+
 class Mensajes extends React.Component 
 {   
   state = {
-    messages: [],
+    messages: [
+      {
+        id: 1,
+        text:"Texto",
+        created_at: "2018-01-10 13:14"
+      }
+    ],
     message: {
       text: undefined
     }
@@ -36,6 +49,7 @@ class Mensajes extends React.Component
 
   componentDidMount(){
     //let chat_id = this.props.navigation.getParam("chat_id");
+    /*
     let chat_id = 9;
     if(chat_id != undefined)
     {
@@ -46,12 +60,16 @@ class Mensajes extends React.Component
     {
       Alert.alert("No se pasó ningún chat.")
     }
+    */
 
   }
 
   _getMessages = async (chat_id) => {
+    let {env, prod, dev} = this.props.state;
+    let base = env == "PROD" ? prod : dev;
+
     axios.defaults.headers.common['token'] = 'de23b0432024fb85fc6d948a9d656c2f7805629b6415ff8c';
-    let m = await axios.get('https://www.ivorystack.com/mainbk/api/chats/' + chat_id + '/messages/')
+    let m = await axios.get(base + '/chats/' + chat_id + '/messages/')
     .then((data)=>{
       if(data.data.success == 1)
       {
@@ -166,4 +184,4 @@ class Mensajes extends React.Component
   }
 }
 
-export default connect(mapStateToProps)(Mensajes)
+export default connect(mapStateToProps, mapDispatchToProps)(Mensajes)

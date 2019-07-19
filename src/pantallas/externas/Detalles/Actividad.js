@@ -27,6 +27,13 @@ function mapStateToProps(state){
   }
 }
 
+function mapDispatchToProps (dispatch)
+{
+    return {
+      setRegistro: (variable, valor) => dispatch(Actions.setRegistro(variable, valor)),
+    };
+}
+
 class Actividad extends React.Component 
 {    
     state = {     
@@ -113,8 +120,9 @@ class Actividad extends React.Component
                     width: "100%",
                     margin:5
                   }}
+                  selectedValue={this.props.state.autenticacion.registro.actividad_fisica_actual}
                   onValueChange={(itemValue, itemIndex) =>
-                    this.setState({actividad_fisica_actual: itemValue})
+                    this.props.setRegistro("actividad_fisica_actual", itemValue)
                   }>
                     {this.state.niveles.map((item)=>(
                       <Picker.Item key={item.id.toString()} label={item.titulo.toString()} value={item.id} />
@@ -144,8 +152,9 @@ class Actividad extends React.Component
                     width: "100%",
                     margin:5
                   }}
+                  selectedValue={this.props.state.autenticacion.registro.actividad_fisica_meta}
                   onValueChange={(itemValue, itemIndex) =>
-                    this.setState({actividad_fisica_meta: itemValue})
+                    this.props.setRegistro("actividad_fisica_meta", itemValue)
                   }>
                     {this.state.niveles.map((item)=>(
                       <Picker.Item key={item.id.toString()} label={item.titulo.toString()} value={item.id} />
@@ -192,15 +201,18 @@ class Actividad extends React.Component
               marginBottom: 30,
               borderRadius:25
             }}
-            onPress={()=>{
-              let {actividad_fisica_actual, actividad_fisica_meta, habitos_seleccionados} = this.state;
-              let registro = this.props.state.autenticacion.registro;
-              registro.actividad_fisica_actual = actividad_fisica_actual;
-              registro.actividad_fisica_meta = actividad_fisica_meta;
-              registro.habitos = habitos_seleccionados;
-              this.props.dispatch(Actions.setRegistro(registro));
-              console.log(this.props.state.autenticacion.registro)
-              //this.props.navigation.navigate("CualEsTuObjetivo");
+            onPress={async ()=>{  
+              this.props.setRegistro("habitos", this.state.habitos_seleccionados)
+
+              let {env, prod, dev} = this.props.state;
+              let base = env == "PROD" ? prod : dev;
+              axios({
+                method: 'post',
+                url: base + "/details",
+                data: this.props.state.autenticacion.registro
+              })
+              .then((res)=>console.log(res.data))
+              .catch((e)=>console.log({error_trimalayo: e}));
             }}
           >
             <Text style={{fontFamily:"NunitoBold", fontSize:20, color:"white"}}>Listo</Text>
@@ -213,4 +225,4 @@ class Actividad extends React.Component
     }
   }
 
-export default connect(mapStateToProps)(Actividad)
+export default connect(mapStateToProps, mapDispatchToProps)(Actividad)

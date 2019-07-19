@@ -6,6 +6,7 @@ import {facebookInfo, googleInfo} from './servicios/rrssllogin'
 import BackButton from '../../componentes/BackButton'
 import FooterIniciarSesion from '../../componentes/FooterIniciarSesion'
 import axios from 'axios'
+import Actions from '../../store/Actions'
 
 function mapStateToProps(state){
   return {
@@ -24,7 +25,7 @@ class RegistroScreen extends React.Component
       correo: "",
       password: "",
       isLoading: false,
-      urlRegistro: "https://ivorystack.com/mainbk/public/api/users"
+      urlRegistro: "https://ivorystack.com/mainbk/api/users"
     };
     this.registro = this.registro.bind(this)
     this.getFacebookInfo = this.getFacebookInfo.bind(this)
@@ -32,9 +33,9 @@ class RegistroScreen extends React.Component
   } 
 
   componentDidMount = async () => {    
-    let objetivos = await axios.get('https://www.ivorystack.com/mainbk/api/objectives').then(res=>res.data);
-    let niveles = await axios.get('https://www.ivorystack.com/mainbk/api/levels').then(res=>res.data);
-    let habitos = await axios.get('https://www.ivorystack.com/mainbk/api/habits').then(res=>res.data);
+    let objetivos = await axios.get('https://ivorystack.com/mainbk/api/objectives').then(res=>res.data);
+    let niveles = await axios.get('https://ivorystack.com/mainbk/api/levels').then(res=>res.data);
+    let habitos = await axios.get('https://ivorystack.com/mainbk/api/habits').then(res=>res.data);
 
     this.props.dispatch({
       type: "SET_INITIALS",
@@ -88,7 +89,8 @@ class RegistroScreen extends React.Component
       role_id: 1
     });  
 
-    console.log(res.data); 
+    this.props.dispatch(Actions.setAuthenticated(res.data.data));
+    this.props.navigation.navigate("DatosPersonales");
   }
 
   render() {

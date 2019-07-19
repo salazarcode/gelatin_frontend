@@ -3,8 +3,8 @@ import Reducer from './Reducer'
 
 const INITIAL_STATE = {
     estaFuera: false,
-    env: "DEV",
-    prod: "http://www.ivorystack.com/mainbk/api",
+    env: "PROD",
+    prod: "https://www.ivorystack.com/mainbk/api",
     dev: "http://www.ivorystack.com/mainbk/public/api",
     autenticacion: {
         pool_id:1,
@@ -15,24 +15,25 @@ const INITIAL_STATE = {
             sexo: "",
             nombre: "",
             ubicacion: "",
-            edad: undefined,
-            estatura: undefined,
+            edad: "18",
+            estatura: "100",
 
             //CUAL ES TU OBJETIVO
             objetivos: [],
 
             //PESO
-            peso : undefined,
-            cintura: undefined,
-            peso_ideal: undefined,
+            peso_actual : "20",
+            cintura: "20",
+            peso_ideal: "20",
 
             //ACTIVIDAD
-            actividad_fisica_actual:undefined,
-            actividad_fisica_meta:undefined,
-            habitos: []
+            actividad_fisica_actual:"1",
+            actividad_fisica_meta:"1",
+            habitos: [],
+            user_id: undefined
         },
-        email: undefined,
-        password: undefined,      
+        authenticated: undefined,   
+
         initials: {
             objetivos:[],
             habitos: [],
