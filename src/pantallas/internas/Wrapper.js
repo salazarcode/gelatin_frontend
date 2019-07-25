@@ -25,7 +25,7 @@ class Wrapper extends React.Component
   }
   render() {    
     return (
-      <SafeAreaView style={{flex:1, paddingTop:Platform.OS == "android" ? 24 : 0}}>
+      <SafeAreaView style={{flex:1}}>
         <KeyboardAvoidingView style={{flex:1}} behavior="padding" enabled>    
           <View style={{flex:0.9, backgroundColor:this.props.state.colores.fondo}} >
                   

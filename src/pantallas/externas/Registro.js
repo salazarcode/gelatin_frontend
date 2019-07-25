@@ -4,7 +4,6 @@ import {Button} from 'react-native-paper'
 import { connect } from 'react-redux'
 import {facebookInfo, googleInfo} from './servicios/rrssllogin'
 import BackButton from '../../componentes/BackButton'
-import FooterIniciarSesion from '../../componentes/FooterIniciarSesion'
 import axios from 'axios'
 import Actions from '../../store/Actions'
 
@@ -25,30 +24,13 @@ class RegistroScreen extends React.Component
       correo: "",
       password: "",
       isLoading: false,
-      urlRegistro: "https://ivorystack.com/mainbk/api/users"
+      urlRegistro: "http://www.gelatin.ivorystack.com/api/users"
     };
     this.registro = this.registro.bind(this)
     this.getFacebookInfo = this.getFacebookInfo.bind(this)
     this.getGoogleInfo = this.getGoogleInfo.bind(this)
   } 
-
-  componentDidMount = async () => {    
-    let {env, prod, dev} = this.props.state;
-    let base = env == "PROD" ? prod : dev;
-    axios({
-      method: 'post',
-      url: base + "/details",
-      data: {
-        habitos: [
-          {id:1},
-          {id:2},
-        ]
-      }
-    })
-    .then((res)=>console.log(res.data))
-    .catch((e)=>console.log({error_trimalayo: e}));
-  }
-
+  
   async getFacebookInfo(){
     let fbInfo = await facebookInfo();
     await this.props.dispatch({
@@ -82,6 +64,7 @@ class RegistroScreen extends React.Component
         ],
         {cancelable: false},
       );
+      return;
     }
     let res = await axios.post(this.state.urlRegistro, {
       email: this.state.correo,

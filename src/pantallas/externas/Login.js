@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Image, Platform } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, Platform, KeyboardAvoidingView } from 'react-native';
 import {Button} from 'react-native-paper'
 import { connect } from 'react-redux'
 import {facebookInfo, googleInfo} from './servicios/rrssllogin'
@@ -29,7 +29,7 @@ class LoginScreen extends React.Component
       FacebookInfo: undefined,
       GoogleInfo: undefined
     };
-    this.login = this.login.bind(this)
+    this._login = this._login.bind(this)
     this.FacebookLogin = this.FacebookLogin.bind(this);
     this.GoogleLogin = this.GoogleLogin.bind(this);
   }  
@@ -91,12 +91,12 @@ class LoginScreen extends React.Component
     }
   }
 
-  async login(){
+  async _login(){
     let correo = this.state.correo;
     let password = this.state.password;
     await this.setState({"isLoading": true});
-
-    let res = await axios.post("gelatin.ivorystack.com/api/login", {
+    
+    let res = await axios.post("http://gelatin.ivorystack.com/api/login", {
         correo: correo,
         password: password
     })
@@ -105,20 +105,21 @@ class LoginScreen extends React.Component
     })
     .catch(function (error) {
         console.log(error);
-    });    
+    });   
 
     await this.setState({"isLoading": false});
 
     if(res.success == 1)
     {        
-        await this.setState({
+        this.setState({
             "isLoading": false
         });
         await this.props.dispatch({
           type: "SET_TOKEN",
-          payload: {token:res.token}
+          payload: {token:res.data.token}
         });
-        this.props.navigation.navigate('HomeWrapper')//
+        console.log(this.props.state.token)
+        this.props.navigation.navigate('Dashboard')
     }
     else
     {   
@@ -244,10 +245,10 @@ class LoginScreen extends React.Component
             elevation:7
           }}
           color={this.props.state.colores.azulClaro}
-          onPress={() => this.props.navigation.navigate('Login')}
+          onPress={this._login}
         >
             <Text style={{fontFamily: "NunitoBold", fontSize:14, color:"white"}}>Iniciar sesión</Text>
-        </Button>    
+        </Button>  
       </View>
     );
   }

@@ -27,6 +27,7 @@ function mapStateToProps(state)
     nombre: state.autenticacion.registro.nombre,
     edad: state.autenticacion.registro.edad,
     estatura: state.autenticacion.registro.estatura,
+    ubicacion: state.autenticacion.registro.ubicacion,
     colores:state.colores
   }
 }
@@ -37,7 +38,8 @@ function mapDispatchToProps (dispatch)
       setSexo: (sexo) => dispatch(Actions.setRegistro("sexo", sexo)),
       setNombre: (nombre) => dispatch(Actions.setRegistro("nombre", nombre)),
       setEdad: (edad) => dispatch(Actions.setRegistro("edad", edad)),
-      setEstatura: (estatura) => dispatch(Actions.setRegistro("estatura", estatura))
+      setEstatura: (estatura) => dispatch(Actions.setRegistro("estatura", estatura)),
+      setUbicacion: (location) => dispatch(Actions.setRegistro("ubicacion", location)),
     };
 }
 
@@ -48,13 +50,14 @@ class DatosPersonales extends React.Component
     super(props)
     this.state = {
       location: undefined,
-      locationError: undefined
+      locationError: undefined,
     }
+    this._getLocationAsync = this._getLocationAsync.bind(this);
   }
   static navigationOptions = {
       header: null
   }
-  /*    
+      
   async componentDidMount(){
     if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
@@ -73,13 +76,11 @@ class DatosPersonales extends React.Component
       this.setState({
         locationError: 'Permission to access location was denied',
       });
-    }
-   
-
+    }  
     let location = await Location.getCurrentPositionAsync({});
-    this.setState({ location: location });
+    this.props.setUbicacion(JSON.stringify(location));   
   };  
-  */
+  
   IntArray = (start, end) => {
     let arr = [];
     for(let n = start; n <= end; n++)

@@ -16,6 +16,7 @@ import Agua from '../../componentes/Agua'
 import DatosCardiovasculares from '../../componentes/DatosCardiovasculares'
 import AlarmaPrincipal from '../../componentes/AlarmaPrincipal'
 import Fecha from '../../componentes/Fecha'
+import Wrapper from './Wrapper'
 
 
 
@@ -27,7 +28,10 @@ import {
 } from '../../styles/dashboard'
 
 class Dashboard extends React.Component 
-{    
+{        
+  static navigationOptions = {
+    header: null
+  }
   render() {
     return (
       <Wrapper>
