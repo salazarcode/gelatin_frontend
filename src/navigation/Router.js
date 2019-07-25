@@ -41,7 +41,7 @@ const AppNavigator = createStackNavigator({
   Mensajes: Mensajes
 },
 {
-  initialRouteName: "Registro"
+  initialRouteName: "Login"
 });
 
 const AppContainer = createAppContainer(AppNavigator);

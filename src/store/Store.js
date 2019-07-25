@@ -4,8 +4,8 @@ import Reducer from './Reducer'
 const INITIAL_STATE = {
     estaFuera: false,
     env: "PROD",
-    prod: "https://www.ivorystack.com/mainbk/api",
-    dev: "http://www.ivorystack.com/mainbk/public/api",
+    prod: "https://gelatin.ivorystack.com/api",
+    dev: "https://gelatin.ivorystack.com/api",
     autenticacion: {
         pool_id:1,
         role_id:3, //premium por ahora

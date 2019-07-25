@@ -46,7 +46,7 @@ class LoginScreen extends React.Component
 
     if(fbInfo != undefined)
     {
-      let res = await axios.post("https://ivorystack.com/mainbk/public/api/" + 'login', {
+      let res = await axios.post('gelatin.ivorystack.com/api/login', {
         correo: fbInfo.email,
         facebook: 1
       });      
@@ -73,7 +73,7 @@ class LoginScreen extends React.Component
       }
     });    
 
-    let res = await axios.post("https://ivorystack.com/mainbk/public/api/" + 'login', {
+    let res = await axios.post("gelatin.ivorystack.com/api/login", {
       correo: user.email,
       gmail: 1
     });           
@@ -96,7 +96,7 @@ class LoginScreen extends React.Component
     let password = this.state.password;
     await this.setState({"isLoading": true});
 
-    let res = await axios.post("https://ivorystack.com/mainbk/public/api/" + 'login', {
+    let res = await axios.post("gelatin.ivorystack.com/api/login", {
         correo: correo,
         password: password
     })

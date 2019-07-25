@@ -33,20 +33,20 @@ class RegistroScreen extends React.Component
   } 
 
   componentDidMount = async () => {    
-    let objetivos = await axios.get('https://ivorystack.com/mainbk/api/objectives').then(res=>res.data);
-    let niveles = await axios.get('https://ivorystack.com/mainbk/api/levels').then(res=>res.data);
-    let habitos = await axios.get('https://ivorystack.com/mainbk/api/habits').then(res=>res.data);
-
-    this.props.dispatch({
-      type: "SET_INITIALS",
-      payload: {
-        initials: {
-          objetivos: objetivos,
-          niveles: niveles,
-          habitos: habitos
-        }
+    let {env, prod, dev} = this.props.state;
+    let base = env == "PROD" ? prod : dev;
+    axios({
+      method: 'post',
+      url: base + "/details",
+      data: {
+        habitos: [
+          {id:1},
+          {id:2},
+        ]
       }
-    });
+    })
+    .then((res)=>console.log(res.data))
+    .catch((e)=>console.log({error_trimalayo: e}));
   }
 
   async getFacebookInfo(){
