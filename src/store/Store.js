@@ -40,7 +40,7 @@ const INITIAL_STATE = {
             niveles: []
         },
     },
-    token:"", 
+    token:"540a846d25a93fe72b9295e33bd5f37855f1c80fe3096012", 
     google: undefined,
     facebook: undefined,
     colores: {

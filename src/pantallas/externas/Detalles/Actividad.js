@@ -206,13 +206,15 @@ class Actividad extends React.Component
 
               let {env, prod, dev} = this.props.state;
               let base = env == "PROD" ? prod : dev;
-              axios({
+              await axios({
                 method: 'post',
                 url: base + "/details",
                 data: this.props.state.autenticacion.registro
               })
               .then((res)=>console.log(res.data))
               .catch((e)=>console.log({error_trimalayo: e}));
+
+              this.props.navigation.navigate("Dashboard")
             }}
           >
             <Text style={{fontFamily:"NunitoBold", fontSize:20, color:"white"}}>Listo</Text>
