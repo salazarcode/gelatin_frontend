@@ -42,6 +42,14 @@ class Peso extends React.Component
     static navigationOptions = {
         header: null
     }
+    componentDidMount(){
+      let r = this.props.state.registro;
+      this.setState({
+        peso_actual: r.peso_actual,
+        cintura: r.cintura,
+        peso_ideal: r.peso_ideal
+      })
+    }
 
     IntArray = (start, end) => {
       let arr = [];
@@ -168,9 +176,9 @@ class Peso extends React.Component
               borderRadius:25
             }}
             onPress={()=>{
-              this.props.setRegistro("peso_actual", this.state.peso_actual)
-              this.props.setRegistro("cintura", this.state.cintura)              
-              this.props.setRegistro("peso_ideal", this.state.peso_ideal)
+              this.props.setRegistro("peso_actual", parseFloat(this.state.peso_actual))
+              this.props.setRegistro("cintura", parseFloat(this.state.cintura))              
+              this.props.setRegistro("peso_ideal", parseFloat(this.state.peso_ideal))
               this.props.navigation.navigate("Actividad");
             }}
           >

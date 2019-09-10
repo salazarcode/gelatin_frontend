@@ -31,16 +31,11 @@ function mapDispatchToProps(dispatch)
 class Mensajes extends React.Component 
 {   
   state = {
-    messages: [
-      {
-        id: 1,
-        text:"Texto",
-        created_at: "2018-01-10 13:14"
-      }
-    ],
-    message: {
-      text: undefined
-    }
+    messages: [],
+    message: undefined,
+    chat_id: undefined,
+    text: "",
+    timer: undefined
   }
 
   static navigationOptions = {
@@ -48,39 +43,21 @@ class Mensajes extends React.Component
   }
 
   componentDidMount(){
-    //let chat_id = this.props.navigation.getParam("chat_id");
-    /*
-    let chat_id = 9;
-    if(chat_id != undefined)
-    {
-      this._getMessages(chat_id);
-      this.timer = setInterval(()=>{console.log("Llamada")}, 5000);
-    }
-    else
-    {
-      Alert.alert("No se pasó ningún chat.")
-    }
-    */
-
+    this.setState({chat_id:this.props.navigation.getParam("chat_id")});
+    this.setState({chat_id:6});
+    this.timer = setInterval(()=>this._getMessages(6), 1000);
   }
 
   _getMessages = async (chat_id) => {
     let {env, prod, dev} = this.props.state;
     let base = env == "PROD" ? prod : dev;
 
-    axios.defaults.headers.common['token'] = 'de23b0432024fb85fc6d948a9d656c2f7805629b6415ff8c';
-    let m = await axios.get(base + '/chats/' + chat_id + '/messages/')
-    .then((data)=>{
-      if(data.data.success == 1)
-      {
-        this.setState({messages:data.data.data.messages});
-      }
-      else
-      {
-        Alert.alert("No se pudieron recuperar los mensajes del servidor")
-      }      
-    });
-    console.log("Llamó y obtuvo los mensajes");
+    chat_id = 6;
+
+    axios.defaults.headers.common['token'] = this.props.state.authenticated.token;
+    let m = await axios.get(base + '/chats/' + chat_id + '/messages')
+    .then(r => this.setState({messages:r.data.data.messages}))
+    .catch(e=> console.log(e))
   }
 
   mensaje = (mensaje) => {
@@ -89,14 +66,15 @@ class Mensajes extends React.Component
         height:"auto",
         width: "100%",
         flexDirection: 'row',
-        alignItems: 'flex-end',
-        marginTop:1
+        alignItems: "center",
+        justifyContent: this.props.state.authenticated.id == mensaje.user_id ? 'flex-end' : "flex-start",
+        marginTop:1,
       }}>
         <View style={{
           height:"auto",
           width:"80%",
           borderRadius:5,
-          backgroundColor:"ivory",
+          backgroundColor:this.props.state.authenticated.id == mensaje.user_id ? this.props.state.colores.azulClaro : this.props.state.colores.azulOscuro,
           elevation:2,
           margin:5,
           padding:10,
@@ -105,7 +83,7 @@ class Mensajes extends React.Component
           <Text style={{
             fontSize: 16,
             fontFamily: "NunitoRegular",
-            color:"gray",
+            color:"white",
             alignSelf: 'flex-end'
           }}>
             {mensaje.text}          
@@ -114,7 +92,7 @@ class Mensajes extends React.Component
           <Text style={{
             fontSize: 9,
             fontFamily: "NunitoBold",
-            color:"silver",
+            color:"white",
             alignSelf: 'flex-end'
           }}>
             {mensaje.created_at}          
@@ -155,7 +133,7 @@ class Mensajes extends React.Component
             >
               <TextInput
                 style={{flex:1, fontFamily:"NunitoRegular", color:"gray", fontSize:14}}
-                onChangeText={(text) => this.setState({text})}
+                onChangeText={(text) => this.setState({text:text})}
                 value={this.state.text}
               />
             </View>
@@ -169,7 +147,24 @@ class Mensajes extends React.Component
               <TouchableOpacity
                 style={{flex:1, alignItems: 'center', justifyContent: 'center'}}
                 onPress={
-                  () => {
+                  async () => 
+                  {
+                    let {env, prod, dev} = this.props.state;
+                    let base = env == "PROD" ? prod : dev;
+                    await axios({
+                      method: 'post',
+                      url: base + "/chats/"+this.state.chat_id+"/messages",
+                      data: {
+                        text: this.state.text,
+                        chat_id: this.state.chat_id
+                      }
+                    })
+                    .then(()=>{
+                      this._getMessages(this.state.chat_id);
+                      this.setState({text:""}); 
+                    })
+                    .catch((e)=>console.log({error_trimalayo: e}));   
+
                   }
                 }
               >

@@ -97,7 +97,7 @@ class LoginScreen extends React.Component
     await this.setState({"isLoading": true});
     
     let res = await axios.post("http://gelatin.ivorystack.com/api/login", {
-        correo: correo,
+        email: correo,
         password: password
     })
     .then(function (response) {
@@ -115,18 +115,14 @@ class LoginScreen extends React.Component
             "isLoading": false
         });
         await this.props.dispatch({
-          type: "SET_TOKEN",
-          payload: {token:res.data.token}
+          type: "SET_USER",
+          payload: {authenticated:res.user}
         });
-        console.log(this.props.state.token)
         this.props.navigation.navigate('Dashboard')
     }
     else
     {   
-        await this.setState({
-            "isLoading": false,
-            "token": res.message
-        });
+        Alert.alert("Hubo un problema durante el login");
     }
     
   }

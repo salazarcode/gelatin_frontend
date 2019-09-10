@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert} from 'react-native';
 import { Button } from 'react-native-paper';
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -21,52 +21,47 @@ class Profile extends React.Component
   } 
 
   
-  async logout(token){
-    let ruta = "https://ivorystack.com/mainbk/public/api/"
-
-    let conf = {
+  async logout(){
+    let res = await axios({
       method: 'post',
-      url: ruta + 'logout',
-      headers: {"token": token}
-    };
-    let res = await axios(conf)
-    .then((response)=> {
-      return response.data
+      url: 'http://www.gelatin.ivorystack.com/api/logout',
+      headers: {"token": this.props.state.authenticated.session_token}
     })
-    .catch(()=>{}); 
+    .then((response)=>response.data)
+    .catch((e)=>console.log(e)); 
     
-    this.props.dispatch({
-      type: "SALIR",
-      payload: {
-        estaFuera: true
-      }
-    });
-
-    console.log(this.props)
+    if(res.success == 1)
+    {     
+      this.props.navigation.navigate("Presentacion"); 
+    }
+    else
+    {
+      Alert.alert("Hubo algún problema para salir.");
+    }
 
 
 
   }  
   render() {
+    let img = this.props.state.authenticated.detail.profile_picture;
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>    
-        <Text>GOOGLE: {this.props.state.google ? JSON.stringify(this.props.state.google) : ""}</Text>
-        <Text>FACEBOOK: {this.props.state.facebook ? JSON.stringify(this.props.state.facebook) : ""}</Text>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Image
+          style={{
+            width: 200,
+            height:200,
+            alignSelf: "center",
+            borderRadius: 50
+          }}
+          source={{uri:img != undefined ? img : ""}}
+        />    
         <Button 
           title="Salir" //
-          onPress={(ev)=>{this.logout(this.props.state.token)}}
+          onPress={this.logout}
           style={styles.boton}
           loading={this.state.isLoading}
         >
-          Salir
-        </Button>
-        <Button 
-          title="aux" 
-          onPress={(ev)=>{console.log(this)}}
-          style={styles.boton}
-          loading={this.state.isLoading}
-        >
-          Auxiliar
+          Cerrar Sesión
         </Button>
       </View>
     );

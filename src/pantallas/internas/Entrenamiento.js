@@ -64,18 +64,24 @@ class Entrenamiento extends React.Component
   }
 
   async componentDidMount(){
-    axios.defaults.headers.common['token'] = 'de23b0432024fb85fc6d948a9d656c2f7805629b6415ff8c';
-    let contactos = await axios.get('https://www.ivorystack.com/mainbk/api/chats/contacts');
-    let chats = await axios.get('https://www.ivorystack.com/mainbk/api/chats');
+    axios.defaults.headers.common['token'] = this.props.state.authenticated.session_token;
+    
+    let contactos = await axios.get('http://www.gelatin.ivorystack.com/api/chats/contacts')
+    .then(res=>res.data.data.contacts)
+    .catch(e=>console.log(e));
+    
+    let chats = await axios.get('http://www.gelatin.ivorystack.com/api/chats')
+    .then(res=>res.data.data.chats)
+    .catch(e=>console.log(e));
 
     await this.setState({
-      contactos: contactos.data.data.contacts,
-      chats: chats.data.data.chats,      
+      contactos: contactos,
+      chats: chats,      
     })
   }
   render() {
     return (
-      <Wrapper>
+      <Wrapper navigation={this.props.navigation}>
         <ScrollView 
         style={{
           flex:1

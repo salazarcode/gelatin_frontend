@@ -8,6 +8,7 @@ import {
   Platform,
   ScrollView, 
   TouchableOpacity,
+  Alert,
   Image
 } from 'react-native';
 import {Button} from 'react-native-paper' 
@@ -19,15 +20,17 @@ import Actions from "../../../store/Actions";
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
 
 function mapStateToProps(state)
 {
   return {
-    sexo: state.autenticacion.registro.sexo,
-    nombre: state.autenticacion.registro.nombre,
-    edad: state.autenticacion.registro.edad,
-    estatura: state.autenticacion.registro.estatura,
-    ubicacion: state.autenticacion.registro.ubicacion,
+    sexo: state.registro.sexo,
+    nombre: state.registro.nombre,
+    edad: state.registro.edad,
+    estatura: state.registro.estatura,
+    ubicacion: state.registro.ubicacion,
+    profile_picture: state.registro.profile_picture,
     colores:state.colores
   }
 }
@@ -40,6 +43,7 @@ function mapDispatchToProps (dispatch)
       setEdad: (edad) => dispatch(Actions.setRegistro("edad", edad)),
       setEstatura: (estatura) => dispatch(Actions.setRegistro("estatura", estatura)),
       setUbicacion: (location) => dispatch(Actions.setRegistro("ubicacion", location)),
+      setPicture: (profile_picture) => dispatch(Actions.setRegistro("profile_picture", profile_picture)),
     };
 }
 
@@ -50,15 +54,58 @@ class DatosPersonales extends React.Component
     super(props)
     this.state = {
       location: undefined,
-      locationError: undefined,
+      locationError: undefined,      
+      image: "",
+      hasCameraPermission: false
     }
     this._getLocationAsync = this._getLocationAsync.bind(this);
   }
   static navigationOptions = {
       header: null
   }
+  getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    }
+
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasCameraPermission: status === 'granted' });
+  }
+  _pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+  };
+  _takePicture = async () => {
+    if(this.state.hasCameraPermission)
+    {
+        let result = await ImagePicker.launchCameraAsync({
+          allowsEditing: true,
+        });
+
+        if (!result.cancelled) {
+          this.setState({ image: result });
+        }        
+    }
+    else
+    {
+        console.log("No tienes acceso a la cámara");
+    }
+  };
       
   async componentDidMount(){
+    this.getPermissionAsync();
     if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
         locationError: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
@@ -107,6 +154,20 @@ class DatosPersonales extends React.Component
             }}
             source={require("../../../assets/img/imagen-referencial.png")} />
           <Text style={{fontFamily:"NunitoBold", fontSize:30, alignSelf: 'center', marginTop:10, marginBottom:10}}>Datos personales</Text>
+          <TouchableOpacity 
+            style={{
+              alignSelf: 'center',
+            }}
+            onPress={this._takePicture}
+          >
+            <Image 
+              style={{
+                height: 100,
+                width: 100
+              }}
+              source={this.state.image == "" ? require("../../../assets/img/default_profile_picture.png") : {uri:this.state.image.uri}}
+            />
+          </TouchableOpacity>
           <View style={{
             width:"100%",
             height:"auto",
@@ -244,7 +305,18 @@ class DatosPersonales extends React.Component
           marginBottom: 30,
           borderRadius:25
         }}
-        onPress={()=>{ this.props.navigation.navigate("CualEsTuObjetivo") }}
+        onPress={()=>{           
+          let uriParts = this.state.image.uri.split('/');
+          let name = uriParts[uriParts.length - 1];
+          let ext = "image/"+name.split('.')[1];
+          
+          this.props.setPicture(this.state.image != "" ? {
+            uri:Platform.OS === "android" ? this.state.image.uri : this.state.image.uri.replace("file://", ""),
+            name:name,
+            type:ext
+          } : "");
+          this.props.navigation.navigate("CualEsTuObjetivo") 
+        }}
         >
           <Text style={{fontFamily:"NunitoBold", fontSize:20, color:"white"}}>Siguiente</Text>
         </TouchableOpacity>

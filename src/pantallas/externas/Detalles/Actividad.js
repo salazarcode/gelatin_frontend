@@ -7,7 +7,9 @@ import {
   Picker,
   ScrollView, 
   TouchableOpacity,
-  Image
+  Image,
+  Alert,
+  Platform
 } from 'react-native';
 
 import {
@@ -31,6 +33,7 @@ function mapDispatchToProps (dispatch)
 {
     return {
       setRegistro: (variable, valor) => dispatch(Actions.setRegistro(variable, valor)),
+      setAuthenticated: (user) => dispatch(Actions.setAuthenticated(user)),
     };
 }
 
@@ -120,7 +123,7 @@ class Actividad extends React.Component
                     width: "100%",
                     margin:5
                   }}
-                  selectedValue={this.props.state.autenticacion.registro.actividad_fisica_actual}
+                  selectedValue={this.props.state.registro.actividad_fisica_actual}
                   onValueChange={(itemValue, itemIndex) =>
                     this.props.setRegistro("actividad_fisica_actual", itemValue)
                   }>
@@ -152,7 +155,7 @@ class Actividad extends React.Component
                     width: "100%",
                     margin:5
                   }}
-                  selectedValue={this.props.state.autenticacion.registro.actividad_fisica_meta}
+                  selectedValue={this.props.state.registro.actividad_fisica_meta}
                   onValueChange={(itemValue, itemIndex) =>
                     this.props.setRegistro("actividad_fisica_meta", itemValue)
                   }>
@@ -203,18 +206,41 @@ class Actividad extends React.Component
             }}
             onPress={async ()=>{  
               this.props.setRegistro("habitos", this.state.habitos_seleccionados)
-
+              const data = new FormData();
+            
+              Object.keys(this.props.state.registro).forEach(key => {
+                if(key == "habitos" || key == "objetivos")
+                {
+                  data.append(key, JSON.stringify(this.props.state.registro[key]));
+                }
+                else
+                {
+                  data.append(key, this.props.state.registro[key]);
+                }
+                
+              });
+              
               let {env, prod, dev} = this.props.state;
               let base = env == "PROD" ? prod : dev;
-              await axios({
-                method: 'post',
-                url: base + "/details",
-                data: this.props.state.autenticacion.registro
-              })
-              .then((res)=>console.log(res.data))
-              .catch((e)=>console.log({error_trimalayo: e}));
 
-              this.props.navigation.navigate("Dashboard")
+              let res = await axios({
+                method: 'post',
+                url: base + "/register",
+                data: data,
+                config: { headers: {'Content-Type': 'multipart/form-data' }} }
+              )
+              .then(r=>r.data)
+              .catch(e=>e);
+
+              if(res.success == 1)
+              {
+                this.props.setAuthenticated(res.data.user);
+                this.props.navigation.navigate("Dashboard")
+              }
+              else
+              {
+                Alert.alert("No pude registrate, trata de nuevo!");
+              }       
             }}
           >
             <Text style={{fontFamily:"NunitoBold", fontSize:20, color:"white"}}>Listo</Text>

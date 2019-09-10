@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button,ScrollView, ImageBackground, Image } from 'react-native';
+import { StyleSheet, Text, View, Alert, Button,ScrollView, ImageBackground, Image } from 'react-native';
 import { Surface, IconButton, Divider, Badge } from 'react-native-paper';
 import { connect } from 'react-redux'
 import moment from 'moment-with-locales-es6'
@@ -19,22 +19,25 @@ import Fecha from '../../componentes/Fecha'
 import Wrapper from './Wrapper'
 
 
-
-import {
-  theColor, 
-  theElevation, 
-  theSize, 
-  styles
-} from '../../styles/dashboard'
+function mapStateToProps(state){
+  return {
+    state: state
+  }
+}
 
 class Dashboard extends React.Component 
 {        
+  constructor(props){
+    super(props);
+  }
   static navigationOptions = {
     header: null
   }
+  componentDidMount(){
+  }
   render() {
     return (
-      <Wrapper>
+      <Wrapper navigation={this.props.navigation}>
         <ScrollView 
           style={{ 
             flexDirection: "column", 
@@ -43,7 +46,7 @@ class Dashboard extends React.Component
           }} 
           stickyHeaderIndices={[0]}
         >            
-          <MainHeader/>
+          <MainHeader navigation={this.props.navigation}/>
 
           <View style={{flex:1, zIndex:1}}>
             <Card width="60%" height="2.5%" padding={20} alignItems="center" justifyContent="center">
@@ -106,4 +109,4 @@ class Dashboard extends React.Component
   }
 }
 
-export default connect(null)(Dashboard)
+export default connect(mapStateToProps)(Dashboard)

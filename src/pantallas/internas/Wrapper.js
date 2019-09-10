@@ -33,7 +33,7 @@ class Wrapper extends React.Component
                     
           </View>  
           <View style={{flex:0.1}}>
-            <Footer/>
+            <Footer navigation={this.props.navigation}/>
           </View>  
         </KeyboardAvoidingView>  
       </SafeAreaView>      

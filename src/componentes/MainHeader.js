@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Easing } from 'react-native';
 import { IconButton } from 'react-native-paper';
+import { connect } from 'react-redux'
 
 
 import IconMenu from '../assets/img/menu.png'
@@ -8,6 +9,13 @@ import { BlurView } from 'expo-blur';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 import fondo_azul from '../assets/img/fondo-azul.png'
+
+
+function mapStateToProps(state){
+  return {
+    state: state
+  }
+}
 
 class MainHeader extends React.Component 
 {    
@@ -40,7 +48,7 @@ class MainHeader extends React.Component
                   icon="dehaze"
                   color="#3FC1C9"
                   size={20}
-                  onPress={() => console.log('Pressed')}
+                  onPress={() => this.props.navigation.navigate("Profile")}
                 /> 
           <View style={{flexDirection:"row", alignItems:"center"}}>
 
@@ -89,7 +97,7 @@ class MainHeader extends React.Component
           zIndex:99
         }}>
           <Text style={{fontFamily:"NunitoBold", color:"white",paddingTop:15,paddingLeft:15}}>Dashboard</Text>
-          <Text style={{fontFamily:"NunitoRegular", color:"white",paddingLeft:15}}>Bienvenido a Gelatin, Juan</Text>
+          <Text style={{fontFamily:"NunitoRegular", color:"white",paddingLeft:15}}>Bienvenido a Gelatin, {this.props.state.authenticated != undefined ? this.props.state.authenticated.detail.nombre : ""}</Text>
 
           <View style={{
             flex:1,
@@ -180,4 +188,5 @@ class MainHeader extends React.Component
     );
   } 
 }
-export default MainHeader
+
+export default connect(mapStateToProps)(MainHeader)

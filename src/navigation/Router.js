@@ -14,6 +14,7 @@ import Actividad from "../pantallas/externas/Detalles/Actividad";
 
 //Pantallas internas ____________________________________________
 import Entrenamiento from '../pantallas/internas/Entrenamiento'
+import Profile from '../pantallas/internas/Profile'
 import Mensajes from '../pantallas/internas/Entrenamiento/Mensajes'
 import Dashboard from '../pantallas/internas/Dashboard'
 import Desafios from '../pantallas/internas/Desafios'
@@ -38,7 +39,8 @@ const AppNavigator = createStackNavigator({
   Dashboard: Dashboard,
   Desafios: Desafios,
   Recetas: Recetas,
-  Mensajes: Mensajes
+  Mensajes: Mensajes,
+  Profile: Profile
 },
 {
   initialRouteName: "Presentacion"

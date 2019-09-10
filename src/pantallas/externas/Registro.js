@@ -66,13 +66,8 @@ class RegistroScreen extends React.Component
       );
       return;
     }
-    let res = await axios.post(this.state.urlRegistro, {
-      email: this.state.correo,
-      password: this.state.password,
-      role_id: 1
-    });  
-
-    this.props.dispatch(Actions.setAuthenticated(res.data.data));
+    this.props.dispatch(Actions.setRegistro("email", this.state.correo));
+    this.props.dispatch(Actions.setRegistro("password", this.state.password));
     this.props.navigation.navigate("DatosPersonales");
   }
 

@@ -1,9 +1,5 @@
 let Reducer = (state = {}, action) => {
     switch (action.type) {
-        case "SET_TOKEN":
-            state.token = action.payload.token;
-            return {...state}
-
         case "SET_CHAT":
             state.chat = action.payload.chat;
             return {...state}
@@ -17,24 +13,23 @@ let Reducer = (state = {}, action) => {
             return {...state}            
             
         case "SET_FACEBOOK":
-            state.facebook = action.payload.facebook;
+            state.registro.facebook = action.payload.facebook;
             return {...state}
 
         case "SET_GOOGLE":
-            state.google = action.payload.google;
+            state.registro.google = action.payload.google;
             return {...state}
 
         case "SET_INITIALS":
-            state.autenticacion.initials[action.payload.variable] = action.payload.valor;
+            state.initials[action.payload.variable] = action.payload.valor;
             return {...state};
 
         case "SET_REGISTER":
-            state.autenticacion.registro[action.payload.variable] = action.payload.valor;
+            state.registro[action.payload.variable] = action.payload.valor;
             return {...state};            
 
         case "SET_USER":
-                state.autenticacion.authenticated = action.payload.authenticated;
-                state.autenticacion.registro.user_id = action.payload.authenticated.user.id;
+                state.authenticated = action.payload.authenticated;
                 return {...state};
 
         default:
